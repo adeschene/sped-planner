@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-  root "week#index"
+  root "activities#index"
+
+  resources :activities
 end

@@ -1,4 +1,4 @@
-class NoteController < ApplicationController
+class NotesController < ApplicationController
   def create
     @activity = Activity.find(params[:activity_id])
     @note = @activity.notes.create(note_params)

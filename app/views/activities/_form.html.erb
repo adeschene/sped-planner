@@ -1,0 +1,21 @@
+<% @blocks = [["9:30AM", :nine_thirty], ["10:30AM", :ten_thirty], ["11:30AM", :eleven_thirty], ["Lunch", :lunch], ["1:00PM", :one], ["2:00PM", :two], ["3:00PM", :three]] %>
+
+<%= form_with model: activity do |form| %>
+	<div class="form-group mt-3">
+		<div class="input-group mb-2">
+		    <%= form.text_field :title, class: "form-control", placeholder: "Title" %>
+	    </div>
+	    <div class="row g-2">
+	    	<div class="col input-group mb-2">
+				<%= form.select :block, options_for_select(@blocks), {prompt: "Select Timeslot"}, {class: "form-select"} %>
+			</div>
+			<div class="col input-group mb-2">
+				<%= form.date_field :date, class: "form-control" %>
+			</div>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<%= form.submit "Submit", class: "btn btn-primary" %>
+	</div>
+<% end %>
