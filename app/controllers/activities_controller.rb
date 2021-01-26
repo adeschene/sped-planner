@@ -3,6 +3,18 @@ class ActivitiesController < ApplicationController
     @activities = Activity.all
   end
 
+  def day
+    @activities = Activity.all
+  end
+
+  def week
+    @activities = Activity.all
+  end
+
+  def month
+    @activities = Activity.all
+  end
+
   def show
     @activity = Activity.find(params[:id])
   end

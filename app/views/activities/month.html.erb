@@ -1,0 +1,17 @@
+<%= month_calendar events: @activities do |date, activities| %>
+  <%= date.to_formatted_s(:short) %>
+  <% activities.each do |activity| %>
+    <div>
+      <%= activity.title %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="card bg-light mb-3">
+  <div class="card-header text-center">
+  	New Activity
+  </div>
+  <div class="card-body">
+    <%= render 'form', activity: Activity.new %>
+  </div>
+</div>
