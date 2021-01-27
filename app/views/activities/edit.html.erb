@@ -1,0 +1,14 @@
+<%# Render the new/edit activity form in a card %>
+<div class="card bg-light mb-3">
+  <div class="card-header text-center">
+  	Edit Activity
+  </div>
+  <div class="card-body">
+    <%= render 'form', activity: @activity %>
+  </div>
+</div>
+
+<%# Add a back button that redirects back to the show view for the activity %>
+<div class="container mb-5 text-center">
+  <%= link_to "Back", @activity, class: 'btn btn-dark px-5' %>
+</div>

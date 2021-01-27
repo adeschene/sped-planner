@@ -1,7 +1,7 @@
 class NotesController < ApplicationController
   def create
     @activity = Activity.find(params[:activity_id])
-    @note = @activity.notes.create(note_params)
+    @note = @activity.notes.create(notes_params)
 
     if @note.valid?
       redirect_to activity_path(@activity), notice: "Note successfully added!"
@@ -17,8 +17,8 @@ class NotesController < ApplicationController
   def update
     @note = Note.find(params[:id])
 
-    if @note.update(note_params)
-      redirect_to @note, notice: "Note successfully updated!"
+    if @note.update(notes_params)
+      redirect_to @note.activity, notice: "Note successfully updated!"
     else
       flash.now[:alert] = "Something still needs to be filled out..."
       render :edit
@@ -26,15 +26,15 @@ class NotesController < ApplicationController
   end
 
   def destroy
-    @activity = Activity.find(params[:activity_id])
-    @note = @activity.notes.find(params[:id])
+    @note = Note.find(params[:id])
+    @activity = @note.activity
     @note.destroy
 
     redirect_to activity_path(@activity), notice: "Note successfully deleted!"
   end
 
   private
-    def note_params
+    def notes_params
       params.require(:note).permit(:body)
     end
 end

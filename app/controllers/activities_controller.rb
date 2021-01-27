@@ -23,9 +23,9 @@ class ActivitiesController < ApplicationController
     @activity = Activity.new(activity_params)
 
     if @activity.save
-      redirect_to root_path, notice: "Activity successfully added!"
+      redirect_back fallback_location: root_path, notice: "Activity successfully added!"
     else
-      redirect_to root_path, alert: "Something still needs to be filled out..."
+      redirect_back fallback_location: root_path, alert: "Something still needs to be filled out..."
     end
   end
 
@@ -50,6 +50,8 @@ class ActivitiesController < ApplicationController
 
     redirect_to root_path, notice: "Activity successfully destroyed!"
   end
+
+  
 
   private
     def activity_params

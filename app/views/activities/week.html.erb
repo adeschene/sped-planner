@@ -2,18 +2,26 @@
   <div class="card-body">
     <%= form_tag root_path, method: :get do %>
       <%= label_tag :start_date, "Go to the week of: " %>
-	  <%= date_field_tag :start_date, :start_date %>
-	  <%= submit_tag "Find" %>
+	    <%= date_field_tag :start_date, :start_date %>
+	    <%= submit_tag "Find" %>
     <% end %>
   </div>
 </div>
 
 <%= week_calendar events: @activities do |date, activities| %>
-  <%= date.to_formatted_s(:short) %>
-  <% activities.each do |activity| %>
-    <div>
-      <%= activity.title %>
-    </div>
+  <b><%= date.to_formatted_s(:short) %></b>
+  <% ActivityHelper::BLOCKS.each do |currBlock| %>
+    <% @filtered = activities.select{|a| a.block.to_s == currBlock.to_s} %>
+    <% unless @filtered.empty? %>
+      <div>
+        <%= currBlock.to_s + ":" %>
+      </div>
+      <% @filtered.each do |activity| %>
+        <div>
+          <%= link_to activity.title, activity %>
+        </div>
+      <% end %>
+    <% end %>
   <% end %>
 <% end %>
 

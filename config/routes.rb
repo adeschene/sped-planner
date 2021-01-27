@@ -5,5 +5,7 @@ Rails.application.routes.draw do
   get "activities/week", to: "activities#week", as: :week_view
   get "activities/month", to: "activities#month", as: :month_view
 
-  resources :activities
+  resources :activities do
+  	resources :notes, shallow: true
+  end
 end

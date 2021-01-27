@@ -1,4 +1,6 @@
-<% @blocks = [["9:30AM", :nine_thirty], ["10:30AM", :ten_thirty], ["11:30AM", :eleven_thirty], ["Lunch", :lunch], ["1:00PM", :one], ["2:00PM", :two], ["3:00PM", :three]] %>
+<% def date_placeholder %>
+	<% return params[:start_date] ? params[:start_date] : Date.current %>
+<% end %>
 
 <%= form_with model: activity do |form| %>
 	<div class="form-group mt-3">
@@ -7,11 +9,15 @@
 	    </div>
 	    <div class="row g-2">
 	    	<div class="col input-group mb-2">
-				<%= form.select :block, options_for_select(@blocks), {prompt: "Select Timeslot"}, {class: "form-select"} %>
+				<%= form.select :block, options_for_select(ActivityHelper::BLOCKS), {prompt: "Select Timeslot"}, {class: "form-select"} %>
 			</div>
-			<div class="col input-group mb-2">
-				<%= form.date_field :date, class: "form-control" %>
-			</div>
+			<% if current_page?(day_view_path) %>
+				<%= form.hidden_field :date, value: date_placeholder %>
+			<% else %>
+				<div class="col input-group mb-2">
+					<%= form.date_field :date, class: "form-control", value: date_placeholder %>
+				</div>
+			<% end %>
 		</div>
 	</div>
 

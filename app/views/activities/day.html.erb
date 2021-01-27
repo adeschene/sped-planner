@@ -1,0 +1,17 @@
+<%= calendar number_of_days: 1, events: @activities do |date, activities| %>
+  <%= date %>
+  <% activities.each do |activity| %>
+    <div>
+      <%= link_to activity.title, activity %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="card bg-light mb-3">
+  <div class="card-header text-center">
+  	New Activity
+  </div>
+  <div class="card-body">
+    <%= render 'form', activity: Activity.new %>
+  </div>
+</div>

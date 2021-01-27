@@ -1,0 +1,14 @@
+<%# Render the new/edit note form in a card %>
+<div class="card bg-light mb-3">
+  <div class="card-header text-center">
+  	Edit Note
+  </div>
+  <div class="card-body">
+    <%= render 'editform' %>
+  </div>
+</div>
+
+<%# Add a back button that redirects back to the show view for the note's activity %>
+<div class="container mb-5 text-center">
+  <%= link_to "Back", @note.activity, class: 'btn btn-dark px-5' %>
+</div>

@@ -5,7 +5,7 @@
     <%= link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_next_view %>
   </div>
 
-  <table class="table table-striped table-hover table-bordered">
+  <table class="table table-striped table-hover table-bordered text-center">
     <thead>
       <tr>
         <% date_range.slice(0, 7).each do |day| %>
@@ -18,7 +18,7 @@
       <% date_range.each_slice(7) do |week| %>
         <tr>
           <% week.each do |day| %>
-            <%= content_tag :td, class: [calendar.td_classes_for(day), "text-center"] do %>
+            <%= content_tag :td, class: calendar.td_classes_for(day) do %>
               <% if defined?(Haml) && respond_to?(:block_is_haml?) && block_is_haml?(passed_block) %>
                 <% capture_haml(day, sorted_events.fetch(day, []), &passed_block) %>
               <% else %>
