@@ -9,18 +9,18 @@
 </div>
 
 <%= week_calendar events: @activities do |date, activities| %>
-  <b><%= date.to_formatted_s(:short) %></b>
+  <b><%= date.strftime("%m/%d") %></b>
   <% ActivityHelper::BLOCKS.each do |currBlock| %>
     <% @filtered = activities.select{|a| a.block.to_s == currBlock.to_s} %>
     <% unless @filtered.empty? %>
-      <div>
-        <%= currBlock.to_s + ":" %>
-      </div>
-      <% @filtered.each do |activity| %>
-        <div>
-          <%= link_to activity.title, activity %>
+      <div class="list-group mb-2">
+        <div class="list-group-item list-group-item-secondary">
+          <%= currBlock.to_s + ":" %>
         </div>
-      <% end %>
+        <% @filtered.each do |activity| %>
+          <%= link_to activity.title, activity, class: "list-group-item list-group-item-light" %>
+        <% end %>
+      </div>
     <% end %>
   <% end %>
 <% end %>

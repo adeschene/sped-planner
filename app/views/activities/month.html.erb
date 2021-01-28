@@ -1,10 +1,16 @@
 <%= month_calendar events: @activities do |date, activities| %>
-  <%= date.to_formatted_s(:short) %>
-  <% activities.each do |activity| %>
-    <div>
-      <%= activity.title %>
+  <a href=<%= day_view_path(:start_date => date) %> >
+    <div class="badge mb-1">
+      <%= date.strftime("%d") %>
     </div>
-  <% end %>
+    <ul class="list-group">
+      <% activities.each do |activity| %>
+        <li class="list-group-item">
+          <%= activity.title %>
+        </li>
+      <% end %>
+    </ul>
+  </a>
 <% end %>
 
 <div class="card bg-light mb-3">
