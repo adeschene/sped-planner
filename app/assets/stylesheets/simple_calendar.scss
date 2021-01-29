@@ -44,6 +44,10 @@
     border-left-style: solid;
     border-left-width: 1px;
 
+    .date-color {
+      color: grey;
+    }
+
     a {
       display:block;
       width: 100%;
@@ -58,10 +62,22 @@
   }
 
   .day {
-    height: 80px;
+    height: 120px;
+
+    .date-color {
+      color: #555555;
+    }
 
     .badge {
-      background: #555555;
+      padding: 0.45em;
+      border-radius: 100%;
+    }
+
+    :hover {
+      .badge {
+        background: grey;
+        color: white;
+      }
     }
   }
 
@@ -72,14 +88,6 @@
   .wday-4 {}
   .wday-5 {}
   .wday-6 {}
-
-  .today {
-    background: #FFFFC0;
-
-    .badge {
-      background: #ea5462!important;
-    }
-  }
 
   .past {}
   .future {}
@@ -96,8 +104,15 @@
 
   .has-events {
 
+    .date-color {
+      color: #198754;
+    }
+  }
+
+  .today {
     .badge {
-      background: #198754;
+      background: red;
+      color: white;
     }
   }
 }

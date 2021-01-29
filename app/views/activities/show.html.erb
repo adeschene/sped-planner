@@ -7,33 +7,25 @@
 	    <%= link_to "Edit", edit_activity_path(@activity), class: 'btn btn-secondary px-4 mx-1' %>
 	    <%= link_to "Delete", activity_path(@activity), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger mx-1' %>
 	  </div>
+    <%# Check if there are any notes %>
+    <% if @activity.notes.empty? %>
+      <%# If the notes array is empty, make user aware with a card %>
+      <div class="card w-75 mx-auto mb-5 text-dark bg-light">
+        <div class="card-header text-center">
+          <p class="card-text">No notes...</p>
+        </div>
+      </div>
+    <% else %>
+      <%# Otherwise, list all notes as clickable links %>
+      <%= render @activity.notes %>
+    <% end %>
   </div>
 </div>
-
-<%# Check if there are any notes %>
-<% if @activity.notes.empty? %>
-  <%# If the notes array is empty, make user aware with a card %>
-  <div class="card w-75 mx-auto mb-5 text-dark bg-light">
-    <div class="card-header text-center">
-      <p class="card-text">No notes...</p>
-    </div>
-  </div>
-<% else %>
-  <%# Otherwise, list all notes as clickable links %>
-  <div class="card bg-light mb-5 text-dark bg-light">
-    <div class="card-header text-center">
-      Notes
-    </div>
-    <div class="card-body">
-      <%= render @activity.notes %>
-    </div>
-  </div>
-<% end %>
 
 <%# New note form rendered in a card %>
 <div class="card w-100 mx-auto mt-5 mb-3 text-dark bg-light">
   <div class="card-header">
-    <p class="card-text text-center">New note</p>
+    <p class="card-text text-center fs-5 fw-bold">Add note</p>
   </div>
   <div class="card-body">
     <%= render "notes/form", note: Note.new %>
