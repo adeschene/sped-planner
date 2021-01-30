@@ -2,8 +2,12 @@
   <div class="card-body">
     <p class="card-text"><%= simple_format(note.body) %></p>
     <div class="text-end pe-2">
-	  <%= link_to "Edit", edit_note_path(note), class: 'btn btn-sm btn-secondary px-3 mx-1' %>
-      <%= link_to 'Delete', note, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+	  <%= link_to edit_note_path(note), class: 'btn btn-sm btn-primary' do %>
+        <i class="bi bi-pencil"></i>
+      <% end %>
+      <%= link_to note, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" do %>
+        <i class="bi bi-trash"></i>
+      <% end %>
     </div>
   </div>
 </div>

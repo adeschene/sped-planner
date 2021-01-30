@@ -1,27 +1,23 @@
-<% def isToday(dateToCheck) %>
-  <% return dateToCheck == Date.current %>
-<% end %>
-
 <%= month_calendar events: @activities do |date, activities| %>
   <a href=<%= day_view_path(:start_date => date) %> >
     <div class="date-color fw-bold fs-6 badge">
       <%= date.strftime("%d") %>
     </div>
     <ul class="list-group list-group-flush">
-      <% activities.each do |activity| %>
+      <% activities.each_with_index do |activity, i| %>
         <li class="list-group-item">
-          <%= activity.title %>
+          <i class="bi bi-dot"></i> <%= activity.title %>
         </li>
       <% end %>
     </ul>
   </a>
 <% end %>
 
-<div class="card bg-light mb-3">
+<div class="card text-white bg-dark bg-gradient mb-3">
   <div class="card-header text-center">
-  	New Activity
+  	Add Activity
   </div>
-  <div class="card-body">
+  <div class="card-body form-body">
     <%= render 'form', activity: Activity.new %>
   </div>
 </div>

@@ -1,25 +1,29 @@
 <div class="simple-calendar">
-  <div class="card-body calendar-heading text-center">
-    <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view, class: "btn btn-primary" %>
+  <div class="card-body calendar-heading text-center bg-dark bg-gradient mt-2">
+    <%= link_to calendar.url_for_previous_view, class: "btn btn-primary" do %>
+      <i class="bi bi-chevron-double-left"></i>
+    <% end %>
     <% if calendar.number_of_weeks == 1 %>
-      <span class="fw-bold fs-4 px-5 align-middle calendar-title">Week <%= calendar.week_number %></span>
+      <span class="fw-bold fs-4 px-5 align-middle text-white calendar-title">Week <%= calendar.week_number %></span>
     <%else%>
         <span class="calendar-title">Week <%= calendar.week_number %> - <%= calendar.end_week %></span>
     <%end%>
-        <%= link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_next_view, class: "btn btn-primary px-4" %>
+    <%= link_to calendar.url_for_next_view, class: "btn btn-primary" do %>
+      <i class="bi bi-chevron-double-right"></i>
+    <% end %>
   </div>
 
-  <table class="table table-striped">
-    <thead>
+  <table class="table table-bordered border-dark">
+    <thead class="text-white bg-dark bg-gradient">
       <tr>
-        <% date_range.slice(0, 5).each do |day| %>
+        <% date_range.slice(1, 5).each do |day| %>
           <th><%= t('date.day_names')[day.wday] %></th>
         <% end %>
       </tr>
     </thead>
 
-    <tbody class="text-center">
-      <% date_range.slice(0, 5).each do |day| %>
+    <tbody>
+      <% date_range.slice(1, 5).each do |day| %>
         <%= content_tag :td, class: [calendar.td_classes_for(day), "text-truncate"] do %>
           <% if defined?(Haml) && respond_to?(:block_is_haml?) && block_is_haml?(passed_block) %>
             <% capture_haml(day, sorted_events.fetch(day, []), &passed_block) %>

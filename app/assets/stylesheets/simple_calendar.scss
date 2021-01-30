@@ -1,9 +1,34 @@
+$monday-color: #fad2e1;
+$tuesday-color: #fdfcdc;
+$wednesday-color: #fed9b7;
+$thursday-color: #f8ad9d;
+$friday-color: #99c1de;
+$weekend-color: #FFFFFF;
+
+$today-color: #c71f37;
+
+$date-color: #323031;
+$events-date-color: #5c8001;
+$date-hover-color: #90be6d;
+$past-color: #d8e2dc;
+$other-month-color: #cccccc;
+
+$block-item-color: #ebebeb;
+$block-item-fg-color: black;
+
+$nine-thirty-color: #ff9ebb;
+$ten-thirty-color: #ff7aa2;
+$eleven-thirty-color: #e05780;
+$lunch-color: #b9375e;
+$one-color: #8a2846;
+$two-color: #602437;
+$three-color: #522e38;
+
 .simple-calendar {
   table {
     -webkit-border-horizontal-spacing: 0px;
     -webkit-border-vertical-spacing: 0px;
     background-color: rgba(0, 0, 0, 0);
-    border: 1px solid rgb(221, 221, 221);
     border-collapse: collapse;
     box-sizing: border-box;
     max-width: 100%;
@@ -18,9 +43,6 @@
     padding: 6px;
     border-bottom: 2px solid rgb(221, 221, 221);
     border-collapse: collapse;
-    border-left: 1px solid rgb(221, 221, 221);
-    border-right: 1px solid rgb(221, 221, 221);
-    border-top: 0px none rgb(51, 51, 51);
     box-sizing: border-box;
     text-align: center;
   }
@@ -28,24 +50,10 @@
   td {
     padding: 6px;
     vertical-align: top;
-    width: 14%;
-
-    border: 1px solid #ddd;
-    border-top-color: rgb(221, 221, 221);
-    border-top-style: solid;
-    border-top-width: 1px;
-    border-right-color: rgb(221, 221, 221);
-    border-right-style: solid;
-    border-right-width: 1px;
-    border-bottom-color: rgb(221, 221, 221);
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    border-left-color: rgb(221, 221, 221);
-    border-left-style: solid;
-    border-left-width: 1px;
+    width: 14.285%;
 
     .date-color {
-      color: grey;
+      color: $date-color;
     }
 
     a {
@@ -59,13 +67,23 @@
       background: inherit;
       color: black;
     }
+
+    .block-header {
+      color: white;
+      font-size: 1.15rem;
+    }
+
+    .block-item {
+      background: $block-item-color;
+      color: $block-item-fg-color;
+    }
   }
 
   .day {
-    height: 120px;
+    height: 100px;
 
     .date-color {
-      color: #555555;
+      color: $date-color;
     }
 
     .badge {
@@ -75,44 +93,95 @@
 
     :hover {
       .badge {
-        background: grey;
+        background: $date-hover-color;
         color: white;
       }
     }
   }
 
-  .wday-0 {}
-  .wday-1 {}
-  .wday-2 {}
-  .wday-3 {}
-  .wday-4 {}
-  .wday-5 {}
-  .wday-6 {}
-
-  .past {}
-  .future {}
+  .wday-0 {
+    background: $weekend-color;
+  }
+  .wday-1 {
+    background: $monday-color;
+  }
+  .wday-2 {
+    background: $tuesday-color;
+  }
+  .wday-3 {
+    background: $wednesday-color;
+  }
+  .wday-4 {
+    background: $thursday-color;
+  }
+  .wday-5 {
+    background: $friday-color;
+  }
+  .wday-6 {
+    background: $weekend-color;
+  }
 
   .start-date {}
 
   .prev-month {
-    background: #DDD;
+    background: $other-month-color;
   }
   .next-month {
-    background: #DDD;
+    background: $other-month-color;
   }
   .current-month {}
 
-  .has-events {
+  .past {
+    background: $past-color;
+  }
+  
+  .future {}
 
+  .has-events {
     .date-color {
-      color: #198754;
+      color: $events-date-color;
     }
   }
 
   .today {
+    b {
+      background: $today-color;
+      color: white;
+      border-radius: 100%;
+      padding: 0.25em 0.35em;
+    }
+
     .badge {
-      background: red;
+      background: $today-color;
       color: white;
     }
+  }
+
+  .nine_thirty_block {
+    background: $nine-thirty-color;
+  }
+
+  .ten_thirty_block {
+    background: $ten-thirty-color;
+  }
+
+  .eleven_thirty_block {
+    background: $eleven-thirty-color;
+  }
+
+  .lunch_block {
+    background: $lunch-color;
+  }
+
+  .one_block {
+    background: $one-color;
+  }
+
+  .two_block {
+    background: $two-color;
+  }
+
+  .three_block {
+    background: $three-color;
   }
 }

@@ -2,23 +2,23 @@
   <% ActivityHelper::BLOCKS.each do |currBlock| %>
     <% @filtered = activities.select{|a| a.block.to_s == currBlock.to_s} %>
       <% unless @filtered.empty? %>
-        <div class="list-group mb-2">
-          <div class="list-group-item list-group-item-secondary fs-5 fw-bold">
+        <div class="list-group mb-3 mx-3">
+          <div class="list-group-item fs-5 fw-bold block-header text-center border-dark <%= ActivityHelper::GETBLOCKCLASS[currBlock.to_s] %>">
             <%= currBlock.to_s %>
           </div>
           <% @filtered.each do |activity| %>
-            <%= link_to activity.title, activity, class: "list-group-item list-group-item-light" %>
+            <%= link_to activity.title, activity, class: "list-group-item list-group-item-action list-group-item-secondary block-item border-dark" %>
           <% end %>
         </div>
       <% end %>
     <% end %>
 <% end %>
 
-<div class="card bg-light mb-3">
+<div class="card text-white bg-dark bg-gradient mb-3">
   <div class="card-header text-center">
-  	New Activity
+  	Add Activity
   </div>
-  <div class="card-body">
+  <div class="card-body form-body">
     <%= render 'form', activity: Activity.new %>
   </div>
 </div>

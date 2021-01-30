@@ -1,12 +1,16 @@
 <div class="simple-calendar">
-  <div class="card-body calendar-heading text-center">
-    <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view, class: "btn btn-primary" %>
-    <span class="fw-bold fs-4 px-5 align-middle calendar-title"><%= t('date.month_names')[start_date.month] %> <%= start_date.year %></span>
-    <%= link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_next_view, class: "btn btn-primary px-4" %>
+  <div class="card-body calendar-heading text-center bg-dark bg-gradient mt-2">
+    <%= link_to calendar.url_for_previous_view, class: "btn btn-primary" do %>
+      <i class="bi bi-chevron-double-left"></i>
+    <% end %>
+    <span class="fw-bold fs-4 px-5 align-middle text-white calendar-title"><%= t('date.month_names')[start_date.month] %> <%= start_date.year %></span>
+    <%= link_to calendar.url_for_next_view, class: "btn btn-primary" do %>
+      <i class="bi bi-chevron-double-right"></i>
+    <% end %>
   </div>
 
-  <table class="table table-striped">
-    <thead>
+  <table class="table table-bordered border-dark">
+    <thead class="text-white bg-dark bg-gradient">
       <tr>
         <% date_range.slice(0, 7).each do |day| %>
           <th scope="col"><%= t('date.day_names')[day.wday] %></th>

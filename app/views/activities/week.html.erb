@@ -1,35 +1,39 @@
-<div class="card bg-light mt-2 mb-3">
-  <div class="card-body">
+<div class="card bg-dark bg-gradient text-white mt-2 mb-3">
+  <div class="card-body text-center">
     <%= form_tag root_path, method: :get do %>
-      <%= label_tag :start_date, "Go to the week of: " %>
-	    <%= date_field_tag :start_date, :start_date %>
-	    <%= submit_tag "Find" %>
+      <%= label_tag :start_date, "Go to the week of: ", class: "align-middle fs-5" %>
+	    <%= date_field_tag :start_date, :start_date, class: "align-middle fs-5" %>
+	    <%= button_tag(type: "submit", class: "btn btn-info") do %>
+        <i class="bi bi-search"></i>
+      <% end %>
     <% end %>
   </div>
 </div>
 
 <%= week_calendar events: @activities do |date, activities| %>
-  <b><%= date.strftime("%m/%d") %></b>
+  <div class="mb-1 text-center">
+    <b><%= date.strftime("%m/%d") %></b>
+  </div>
   <% ActivityHelper::BLOCKS.each do |currBlock| %>
     <% @filtered = activities.select{|a| a.block.to_s == currBlock.to_s} %>
     <% unless @filtered.empty? %>
       <div class="list-group mb-2">
-        <div class="list-group-item list-group-item-secondary">
-          <%= currBlock.to_s + ":" %>
+        <div class="list-group-item block-header text-center border-dark <%= ActivityHelper::GETBLOCKCLASS[currBlock.to_s] %>">
+          <%= currBlock.to_s %>
         </div>
         <% @filtered.each do |activity| %>
-          <%= link_to activity.title, activity, class: "list-group-item list-group-item-light" %>
+          <%= link_to activity.title, activity, class: "list-group-item list-group-item-action list-group-item-secondary block-item border-dark" %>
         <% end %>
       </div>
     <% end %>
   <% end %>
 <% end %>
 
-<div class="card bg-light mb-3">
+<div class="card mb-3 text-white bg-dark bg-gradient">
   <div class="card-header text-center">
-  	New Activity
+  	Add Activity
   </div>
-  <div class="card-body">
+  <div class="card-body form-body">
     <%= render 'form', activity: Activity.new %>
   </div>
 </div>

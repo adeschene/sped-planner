@@ -16,7 +16,8 @@ module MomPlanner
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
-    # config.time_zone = "Central Time (US & Canada)"
+    config.time_zone = "Pacific Time (US & Canada)"
+    config.beginning_of_week = :sunday
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end

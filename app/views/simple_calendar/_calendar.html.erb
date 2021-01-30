@@ -1,12 +1,16 @@
 <div class="simple-calendar">
-  <div class="card-body calendar-heading text-center">
-    <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view, class: "btn btn-primary" %>
-    <span class="fw-bold fs-3 px-5 align-middle calendar-title"><%= start_date.strftime("%m/%d/%Y") %></span>
-    <%= link_to t('simple_calendar.next', default: 'Next'), calendar.url_for_next_view, class: "btn btn-primary px-4" %>
+  <div class="card-body calendar-heading text-center bg-dark bg-gradient mt-2">
+    <%= link_to calendar.url_for_previous_view, class: "btn btn-primary" do %>
+      <i class="bi bi-chevron-double-left"></i>
+    <% end %>
+    <span class="fs-3 px-5 align-middle text-white calendar-title <%= isToday(start_date) %>"><b><%= start_date.strftime("%m/%d/%Y") %></b></span>
+    <%= link_to calendar.url_for_next_view, class: "btn btn-primary" do %>
+      <i class="bi bi-chevron-double-right"></i>
+    <% end %>
   </div>
 
-  <table class="table table-striped">
-    <thead>
+  <table class="table table-bordered border-dark">
+    <thead class="text-white bg-dark bg-gradient">
       <tr>
         <% date_range.slice(0, 7).each do |day| %>
           <th class="fs-4"><%= t('date.day_names')[day.wday] %></th>
@@ -14,7 +18,7 @@
       </tr>
     </thead>
 
-    <tbody class="text-center">
+    <tbody>
       <% date_range.each_slice(7) do |week| %>
         <%= content_tag :tr, class: calendar.tr_classes_for(week) do %>
           <% week.each do |day| %>
