@@ -35,3 +35,8 @@
     <%= render "notes/form", note: Note.new %>
   </div>
 </div>
+
+<%# Add a back button that redirects back to the day view for the activity's day %>
+<div class="container mb-5 text-center">
+  <%= link_to "Back", day_view_path(:start_date => @activity.date), class: 'btn btn-danger border-dark px-5' %>
+</div>

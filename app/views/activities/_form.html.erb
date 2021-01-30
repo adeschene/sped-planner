@@ -1,5 +1,5 @@
 <% def date_placeholder %>
-	<% return params[:start_date] ? params[:start_date] : Date.current %>
+	<% return params[:start_date] ? params[:start_date] : @activity.try(:date) %>
 <% end %>
 
 <%= form_with model: activity do |form| %>
