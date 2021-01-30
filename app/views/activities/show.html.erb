@@ -4,10 +4,10 @@
   </div>
   <div class="card-body form-body">
     <div class="ms-2 mb-5 text-center">
-	    <%= link_to edit_activity_path(@activity), class: "btn btn-primary me-1 border-white" do %>
+	    <%= link_to edit_activity_path(@activity), class: "btn btn-primary me-1 border-dark" do %>
         <i class="bi bi-pencil fs-5"></i>
       <% end %>
-	    <%= link_to activity_path(@activity), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger ms-1 border-white' do %>
+	    <%= link_to activity_path(@activity), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger ms-1 border-dark' do %>
         <i class="bi bi-trash fs-5"></i>
       <% end %>
 	  </div>

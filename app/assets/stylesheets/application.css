@@ -16,3 +16,12 @@
  body {
     background: #e288b7;
  }
+
+ textarea {
+ 	overflow-wrap: break-word;
+	outline-style: solid;
+	outline-width: 2px;
+	padding: 10px;
+	vertical-align: top;
+	width: 200px;
+ }
