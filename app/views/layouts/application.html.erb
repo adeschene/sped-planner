@@ -19,7 +19,11 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body 
+    <% if content_for?(:body_attributes) %>
+      <%= yield(:body_attributes) %> 
+    <% end %>
+  >
     <!-- Render header partial above all pages -->
     <%= render 'layouts/header' %>
     <!-- Put contents in a bootstrap container -->

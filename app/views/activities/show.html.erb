@@ -1,3 +1,8 @@
+<%# Disable turbolinks for this page %>
+<% content_for(:body_attributes) do %>
+  data-turbolinks="false"
+<% end %>
+
 <div class="card w-100 mt-5 mb-5 mx-auto text-white bg-dark bg-gradient">
   <div class="card-header fs-2 fw-bold py-2 text-center">
   	<%= @activity.title %>
@@ -36,7 +41,7 @@
   </div>
 </div>
 
-<%# Add a back button that redirects back to the day view for the activity's day %>
+<%# Add a back button that redirects back to the week view for the activity's date %>
 <div class="container mb-5 text-center">
-  <%= link_to "Back", day_view_path(:start_date => @activity.date), class: 'btn btn-danger border-dark px-5' %>
+  <%= link_to "Back", week_view_path(:start_date => @activity.date), class: 'btn btn-danger border-dark px-5' %>
 </div>

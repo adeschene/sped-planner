@@ -1,3 +1,8 @@
+<%# Disable turbolinks for this page %>
+<% content_for(:body_attributes) do %>
+  data-turbolinks="false"
+<% end %>
+
 <div class="card bg-dark bg-gradient text-white mt-2 mb-3">
   <div class="card-body text-center">
     <%= form_tag root_path, method: :get do %>
@@ -16,14 +21,17 @@
   </div>
   <% ActivityHelper::BLOCKS.each do |currBlock| %>
     <% @filtered = activities.select{|a| a.block.to_s == currBlock.to_s} %>
+    <% @collapseID = "blockID" + currBlock.to_s.sub(/:/, '_') + date.to_s %>
     <% unless @filtered.empty? %>
       <div class="list-group mb-2">
-        <div class="list-group-item block-header text-center border-dark <%= ActivityHelper::GETBLOCKCLASS[currBlock.to_s] %>">
+        <a href="#<%= @collapseID %>" data-bs-toggle="collapse" class="list-group-item list-group-item-active block-header text-center border-dark <%= ActivityHelper::GETBLOCKCLASS[currBlock.to_s] %>" aria-expanded="true" aria-controls="<%= @collapseID %>">
           <%= currBlock.to_s %>
+        </a>
+        <div id="<%= @collapseID %>" class="collapse show">
+          <% @filtered.each do |activity| %>
+            <%= link_to activity.title, activity, class: "list-group-item list-group-item-action list-group-item-secondary block-item border-dark" %>
+          <% end %>
         </div>
-        <% @filtered.each do |activity| %>
-          <%= link_to activity.title, activity, class: "list-group-item list-group-item-action list-group-item-secondary block-item border-dark" %>
-        <% end %>
       </div>
     <% end %>
   <% end %>

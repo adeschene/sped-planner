@@ -1,3 +1,8 @@
+<%# Disable turbolinks for this page %>
+<% content_for(:body_attributes) do %>
+  data-turbolinks="false"
+<% end %>
+
 <%= month_calendar events: @activities do |date, activities| %>
   <a href=<%= day_view_path(:start_date => date) %> >
     <div class="date-color fw-bold fs-6 badge">
