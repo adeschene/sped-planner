@@ -16,9 +16,9 @@
 </div>
 
 <%= week_calendar events: @activities do |date, activities| %>
-  <div class="mb-1 text-center">
+  <%= link_to day_view_path(:start_date => date), {class: "btn btn-secondary mb-2", style: "height: 2.5em;"} do %>
     <b><%= date.strftime("%m/%d") %></b>
-  </div>
+  <% end %>
   <% ActivityHelper::BLOCKS.each do |currBlock| %>
     <% @filtered = activities.select{|a| a.block.to_s == currBlock.to_s} %>
     <% @collapseID = "blockID" + currBlock.to_s.sub(/:/, '_') + date.to_s %>
