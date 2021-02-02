@@ -29,7 +29,7 @@
         </a>
         <div id="<%= @collapseID %>" class="collapse show">
           <% @filtered.each do |activity| %>
-            <%= link_to activity.title, activity, class: "list-group-item list-group-item-action list-group-item-secondary block-item border-dark" %>
+            <%= link_to activity.title.truncate(16), activity, class: "list-group-item list-group-item-action list-group-item-secondary block-item border-dark" %>
           <% end %>
         </div>
       </div>
