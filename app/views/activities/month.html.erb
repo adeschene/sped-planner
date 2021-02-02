@@ -6,7 +6,7 @@
 <%= month_calendar events: @activities do |date, activities| %>
   <a href=<%= day_view_path(:start_date => date) %> >
     <div class="date-color fw-bold fs-6 badge">
-      <%= date.strftime("%e") %>
+      <%= date.strftime("%d") %>
     </div>
     <% unless activities.empty? %>
       <div class="text-white fw-bold text-center bg-secondary rounded-pill me-3 ms-3">
