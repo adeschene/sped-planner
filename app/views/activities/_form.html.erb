@@ -9,7 +9,7 @@
 	    </div>
 	    <div class="row g-2">
 	    	<div class="col input-group mb-2">
-				<%= form.select :block, options_for_select(ActivityHelper::BLOCKS), {prompt: "Select Timeslot"}, {class: "form-select"} %>
+				<%= form.select :block, options_for_select(ActivityHelper::BLOCKS.map.with_index { |b, i| [ b, i ] }, activity.block), {prompt: "Select Timeslot"}, {class: "form-select"} %>
 			</div>
 			<% if current_page?(day_view_path) %>
 				<%= form.hidden_field :date, value: date_placeholder %>

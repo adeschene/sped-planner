@@ -19,13 +19,13 @@
   <%= link_to day_view_path(:start_date => date), {class: "btn btn-secondary mb-2", style: "height: 2.5em;"} do %>
     <b><%= date.strftime("%m/%d") %></b>
   <% end %>
-  <% ActivityHelper::BLOCKS.each do |currBlock| %>
-    <% @filtered = activities.select{|a| a.block.to_s == currBlock.to_s} %>
-    <% @collapseID = "blockID" + currBlock.to_s.sub(/:/, '_') + date.to_s %>
+  <% (0..6).each do |currBlock| %>
+    <% @filtered = activities.select{|a| a.block == currBlock} %>
+    <% @collapseID = "blockID" + ActivityHelper::BLOCKS[currBlock].to_s.sub(/:/, '_') + date.to_s %>
     <% unless @filtered.empty? %>
       <div class="list-group mb-2">
-        <a href="#<%= @collapseID %>" data-bs-toggle="collapse" class="list-group-item list-group-item-active block-header text-center border-dark <%= ActivityHelper::GETBLOCKCLASS[currBlock.to_s] %>" aria-expanded="true" aria-controls="<%= @collapseID %>">
-          <%= currBlock.to_s %>
+        <a href="#<%= @collapseID %>" data-bs-toggle="collapse" class="list-group-item list-group-item-active block-header text-center border-dark <%= ActivityHelper::GETBLOCKCLASS[currBlock] %>" aria-expanded="true" aria-controls="<%= @collapseID %>">
+          <%= ActivityHelper::BLOCKS[currBlock] %>
         </a>
         <div id="<%= @collapseID %>" class="collapse show">
           <% @filtered.each do |activity| %>
