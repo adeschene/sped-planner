@@ -1,4 +1,6 @@
 class NotesController < ApplicationController
+  before_action :find_note, only: [:edit, :update, :destroy]
+
   def create
     @activity = Activity.find(params[:activity_id])
     @note = @activity.notes.create(notes_params)
@@ -11,12 +13,9 @@ class NotesController < ApplicationController
   end
 
   def edit
-    @note = Note.find(params[:id])
   end
 
   def update
-    @note = Note.find(params[:id])
-
     if @note.update(notes_params)
       redirect_to @note.activity, notice: "Note successfully updated!"
     else
@@ -26,11 +25,14 @@ class NotesController < ApplicationController
   end
 
   def destroy
-    @note = Note.find(params[:id])
     @activity = @note.activity
     @note.destroy
 
     redirect_to activity_path(@activity), notice: "Note successfully deleted!"
+  end
+
+  def find_note
+    @note = Note.find(params[:id])
   end
 
   private

@@ -1,27 +1,22 @@
 class ActivitiesController < ApplicationController
-  def index
-    @activities = Activity.all
-  end
+  before_action :get_activities, only: [:day, :week, :month]
+  before_action :find_activity, only: [:show, :edit, :update, :destroy]
 
   def day
-    @activities = Activity.all
   end
 
   def week
-    @activities = Activity.all
   end
 
   def month
-    @activities = Activity.all
   end
 
   def show
-    @activity = Activity.find(params[:id])
   end
 
   def create
     @activity = Activity.new(activity_params)
-
+    
     if @activity.save
       redirect_back fallback_location: root_path, notice: "Activity successfully added!"
     else
@@ -30,12 +25,9 @@ class ActivitiesController < ApplicationController
   end
 
   def edit
-    @activity = Activity.find(params[:id])
   end
 
   def update
-    @activity = Activity.find(params[:id])
-
     if @activity.update(activity_params)
       redirect_to @activity, notice: "Activity successfully updated!"
     else
@@ -45,13 +37,20 @@ class ActivitiesController < ApplicationController
   end
 
   def destroy
-    @activity = Activity.find(params[:id])
+    @week_from = @activity.date
+
     @activity.destroy
 
-    redirect_to root_path, notice: "Activity successfully destroyed!"
+    redirect_to week_view_path(:start_date => @week_from), notice: "Activity successfully destroyed!"
   end
 
-  
+  def get_activities
+    @activities = Activity.all
+  end
+
+  def find_activity
+    @activity = Activity.find(params[:id])
+  end
 
   private
     def activity_params
