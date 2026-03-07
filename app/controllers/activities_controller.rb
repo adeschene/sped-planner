@@ -1,5 +1,6 @@
 class ActivitiesController < ApplicationController
   before_action :get_activities, only: [:day, :week, :month]
+  before_action :get_timeslots, only: [:day, :week, :month, :edit]
   before_action :find_activity, only: [:show, :edit, :update, :destroy]
 
   def day
@@ -46,6 +47,10 @@ class ActivitiesController < ApplicationController
 
   def get_activities
     @activities = Activity.all
+  end
+
+  def get_timeslots
+    @timeslots = Timeslot.all
   end
 
   def find_activity

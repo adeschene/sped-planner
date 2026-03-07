@@ -8,4 +8,6 @@ Rails.application.routes.draw do
   resources :activities do
   	resources :notes, shallow: true
   end
+
+  resources :timeslots, only: [:index, :create, :update, :destroy]
 end

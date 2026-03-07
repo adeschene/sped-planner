@@ -4,13 +4,13 @@
 <% end %>
 
 <%= calendar number_of_days: 1, events: @activities do |date, activities| %>
-  <% (0..6).each do |currBlock| %>
-    <% @filtered = activities.select{|a| a.block.to_s == currBlock.to_s} %>
-    <% @collapseID = "blockID" + ActivityHelper::BLOCKS[currBlock].to_s.sub(/:/, '_') %>
+  <% @timeslots.each do |timeslot| %>
+    <% @filtered = activities.select{|a| a.block == timeslot.position} %>
+    <% @collapseID = "blockID" + timeslot.label.to_s.sub(/:/, '_') %>
       <% unless @filtered.empty? %>
         <div class="list-group mb-3 mx-3">
-          <a href="#<%= @collapseID %>" data-bs-toggle="collapse" class="list-group-item list-group-item-active fs-5 fw-bold block-header text-center border-dark <%= ActivityHelper::GETBLOCKCLASS[currBlock] %>" aria-expanded="true" aria-controls="<%= @collapseID %>">
-            <%= ActivityHelper::BLOCKS[currBlock] %>
+          <a href="#<%= @collapseID %>" data-bs-toggle="collapse" class="list-group-item list-group-item-active fs-5 fw-bold block-header text-center border-dark <%= block_css_class(timeslot.position) %>" aria-expanded="true" aria-controls="<%= @collapseID %>">
+            <%= timeslot.label %>
           </a>
           <div id="<%= @collapseID %>" class="collapse show">
             <% @filtered.each do |activity| %>

@@ -80,7 +80,7 @@ $three-color: #522e38;
   }
 
   .day {
-    height: 100px;
+    min-height: 100px;
 
     .date-color {
       color: $date-color;
@@ -183,5 +183,27 @@ $three-color: #522e38;
 
   .three_block {
     background: $three-color;
+  }
+
+  .month-day-cell {
+    height: 100%;
+  }
+
+  .search-highlight {
+    outline: 2px solid #ffc107;
+    border-radius: 4px;
+  }
+
+  .search-match-title {
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: #212529;
+    background: #ffc107;
+    border-radius: 3px;
+    padding: 1px 4px;
+    margin-top: 2px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }

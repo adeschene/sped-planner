@@ -3,17 +3,29 @@
   data-turbolinks="false"
 <% end %>
 
+<div class="card bg-dark bg-gradient text-white mt-2 mb-3">
+  <div class="card-body text-center">
+    <label for="month-search" class="align-middle fs-5 me-2">Search activities:</label>
+    <input type="text" id="month-search" class="form-control d-inline-block w-auto align-middle fs-5" placeholder="Type to filter...">
+  </div>
+</div>
+
 <%= month_calendar events: @activities do |date, activities| %>
-  <a href=<%= day_view_path(:start_date => date) %> >
-    <div class="date-color fw-bold fs-6 badge">
-      <%= date.strftime("%d") %>
-    </div>
-    <% unless activities.empty? %>
-      <div class="text-white fw-bold text-center bg-secondary rounded-pill me-3 ms-3">
-        <%= activities.count %> activities
+  <div class="month-day-cell"
+       data-date="<%= date.to_s %>"
+       data-titles="<%= activities.map(&:title).join('|') %>">
+    <a href="<%= day_view_path(:start_date => date) %>">
+      <div class="date-color fw-bold fs-6 badge">
+        <%= date.strftime("%d") %>
       </div>
-    <% end %>
-  </a>
+      <% unless activities.empty? %>
+        <div class="text-white fw-bold text-center bg-secondary rounded-pill me-3 ms-3">
+          <%= activities.count %> activities
+        </div>
+      <% end %>
+    </a>
+    <div class="search-matches"></div>
+  </div>
 <% end %>
 
 <div class="card text-white bg-dark bg-gradient mb-3">
@@ -24,3 +36,26 @@
     <%= render 'form', activity: Activity.new %>
   </div>
 </div>
+
+<script>
+  document.getElementById('month-search').addEventListener('input', function() {
+    var query = this.value.toLowerCase().trim();
+    document.querySelectorAll('.month-day-cell').forEach(function(cell) {
+      var matchesDiv = cell.querySelector('.search-matches');
+      matchesDiv.innerHTML = '';
+      cell.classList.remove('search-highlight');
+      if (!query) return;
+      var titles = (cell.dataset.titles || '').split('|').filter(Boolean);
+      var matched = titles.filter(function(t) { return t.toLowerCase().indexOf(query) !== -1; });
+      if (matched.length > 0) {
+        cell.classList.add('search-highlight');
+        matched.forEach(function(title) {
+          var el = document.createElement('div');
+          el.className = 'search-match-title';
+          el.textContent = title.length > 18 ? title.substring(0, 18) + '\u2026' : title;
+          matchesDiv.appendChild(el);
+        });
+      }
+    });
+  });
+</script>

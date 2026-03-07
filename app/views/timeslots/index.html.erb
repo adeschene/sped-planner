@@ -1,0 +1,57 @@
+<div class="card text-white bg-dark bg-gradient mt-3 mb-3">
+  <div class="card-header text-center fs-5 fw-bold">
+    Timeslot Settings
+  </div>
+  <div class="card-body">
+    <p class="text-white-50 mb-3">
+      These are the timeslot blocks shown in the Day and Week views. Rename or add slots as your schedule changes.
+      You cannot delete a timeslot that still has activities assigned to it.
+    </p>
+
+    <table class="table table-dark table-bordered align-middle mb-4">
+      <thead>
+        <tr>
+          <th class="text-center" style="width: 3em;">#</th>
+          <th>Label</th>
+          <th class="text-center" style="width: 6em;">Activities</th>
+          <th class="text-center" style="width: 8em;">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @timeslots.each do |timeslot| %>
+          <tr>
+            <td class="text-center text-white-50"><%= timeslot.position %></td>
+            <td>
+              <%= form_with model: timeslot, url: timeslot_path(timeslot), method: :patch, local: true, class: "d-flex gap-2" do |f| %>
+                <%= f.text_field :label, class: "form-control form-control-sm bg-secondary text-white border-dark", required: true %>
+                <%= f.submit "Rename", class: "btn btn-sm btn-outline-info text-nowrap" %>
+              <% end %>
+            </td>
+            <td class="text-center">
+              <% count = Activity.where(block: timeslot.position).count %>
+              <span class="badge bg-secondary"><%= count %></span>
+            </td>
+            <td class="text-center">
+              <%= button_to timeslot_path(timeslot), method: :delete,
+                    class: "btn btn-sm #{ Activity.where(block: timeslot.position).exists? ? 'btn-outline-secondary disabled' : 'btn-outline-danger' }",
+                    data: { confirm: Activity.where(block: timeslot.position).exists? ? nil : "Delete \"#{timeslot.label}\"?" },
+                    disabled: Activity.where(block: timeslot.position).exists? do %>
+                <i class="bi bi-trash"></i>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <div class="card bg-secondary bg-gradient border-dark">
+      <div class="card-header">Add New Timeslot</div>
+      <div class="card-body">
+        <%= form_with model: @new_timeslot, url: timeslots_path, method: :post, local: true, class: "d-flex gap-2 align-items-center" do |f| %>
+          <%= f.text_field :label, class: "form-control bg-dark text-white border-secondary", placeholder: "e.g. 4:00PM", required: true %>
+          <%= f.submit "Add", class: "btn btn-success border-dark text-nowrap" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
