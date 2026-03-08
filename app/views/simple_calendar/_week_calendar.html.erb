@@ -11,19 +11,23 @@
     <%= link_to calendar.url_for_next_view, class: "btn btn-primary" do %>
       <i class="bi bi-chevron-double-right"></i>
     <% end %>
+    <% smart_today = Date.today.wday == 6 ? Date.today + 2 : Date.today.wday == 0 ? Date.today + 1 : Date.today %>
+    <%= link_to week_view_path(start_date: smart_today), class: "btn btn-outline-light btn-sm ms-2" do %>
+      <i class="bi bi-calendar-check me-1"></i>Current
+    <% end %>
   </div>
 
   <table class="table table-bordered border-dark">
     <thead class="text-white bg-dark bg-gradient">
       <tr>
-        <% date_range.slice(1, 5).each do |day| %>
+        <% date_range.slice(0, 5).each do |day| %>
           <th><%= t('date.day_names')[day.wday] %></th>
         <% end %>
       </tr>
     </thead>
 
     <tbody>
-      <% date_range.slice(1, 5).each do |day| %>
+      <% date_range.slice(0, 5).each do |day| %>
         <%= content_tag :td, class: [calendar.td_classes_for(day), "text-truncate"] do %>
           <% if defined?(Haml) && respond_to?(:block_is_haml?) && block_is_haml?(passed_block) %>
             <% capture_haml(day, sorted_events.fetch(day, []), &passed_block) %>

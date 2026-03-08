@@ -5,7 +5,7 @@
 	  <%= link_to edit_note_path(note), class: 'btn btn-sm btn-primary' do %>
         <i class="bi bi-pencil"></i>
       <% end %>
-      <%= link_to note, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" do %>
+      <%= link_to note, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" do %>
         <i class="bi bi-trash"></i>
       <% end %>
     </div>

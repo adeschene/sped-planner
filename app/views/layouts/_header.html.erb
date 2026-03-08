@@ -1,23 +1,26 @@
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark bg-gradient">
-  <div class="container-fluid">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-        <%= link_to 'Month View', month_view_path(:start_date => params[:start_date]), class: 'nav-link' %>
-        </li>
-        <li class="nav-item">
-          <%= link_to 'Week View', week_view_path(:start_date => params[:start_date]), class: 'nav-link' %>
-        </li>
-        <li class="nav-item">
-          <%= link_to 'Day View', day_view_path(:start_date => params[:start_date]), class: 'nav-link' %>
-        </li>
-        <li class="nav-item">
-          <%= link_to 'Settings', timeslots_path, class: 'nav-link' %>
-        </li>
-      </ul>
+<nav class="navbar navbar-dark bg-dark bg-gradient py-2">
+  <div class="container-fluid flex-column align-items-center gap-2">
+    <div class="d-flex flex-wrap gap-2 justify-content-center">
+      <%= link_to month_view_path(:start_date => params[:start_date]),
+            class: "btn btn-sm rounded-pill #{ request.path == month_view_path ? 'btn-light' : 'btn-outline-light' }",
+            aria: { current: request.path == month_view_path ? 'page' : false } do %>
+        <i class="bi bi-calendar-month me-1"></i>Month
+      <% end %>
+      <%= link_to week_view_path(:start_date => params[:start_date]),
+            class: "btn btn-sm rounded-pill #{ request.path == week_view_path ? 'btn-light' : 'btn-outline-light' }",
+            aria: { current: request.path == week_view_path ? 'page' : false } do %>
+        <i class="bi bi-calendar-week me-1"></i>Week
+      <% end %>
+      <%= link_to day_view_path(:start_date => params[:start_date]),
+            class: "btn btn-sm rounded-pill #{ request.path == day_view_path ? 'btn-light' : 'btn-outline-light' }",
+            aria: { current: request.path == day_view_path ? 'page' : false } do %>
+        <i class="bi bi-calendar-day me-1"></i>Day
+      <% end %>
+      <%= link_to timeslots_path,
+            class: "btn btn-sm rounded-pill #{ request.path == timeslots_path ? 'btn-light' : 'btn-outline-light' }",
+            aria: { current: request.path == timeslots_path ? 'page' : false } do %>
+        <i class="bi bi-gear me-1"></i>Settings
+      <% end %>
     </div>
   </div>
 </nav>
