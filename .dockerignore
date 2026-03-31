@@ -1,0 +1,11 @@
+.git
+.gitignore
+/log/*
+/tmp/*
+/storage/*
+/public/assets
+/node_modules
+.env
+postgres_data
+tmp/cache
+node_modules

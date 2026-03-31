@@ -1,0 +1,43 @@
+services:
+  db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    networks:
+      - internal
+
+  app:
+    build: .
+    restart: always
+    # Overrides the Dockerfile CMD to ensure DB is ready before every start
+    command: >
+      sh -c "rm -f tmp/pids/server.pid &&
+             bundle exec rails db:prepare &&
+             bundle exec rails server -b 0.0.0.0"
+    volumes:
+      - ./storage:/rails/storage  # Persists uploaded files/attachments
+    env_file: .env               # Automatically loads RAILS_MASTER_KEY and SECRET_KEY_BASE
+    environment:
+      RAILS_ENV: production
+      DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      RAILS_SERVE_STATIC_FILES: "true"
+    depends_on:
+      - db
+    networks:
+      - internal
+      - nginx-proxy-manager_default
+      - default
+      - proxy_network
+
+networks:
+  internal:
+    driver: bridge
+  nginx-proxy-manager_default:
+    external: true
+  proxy_network:
+    external: true

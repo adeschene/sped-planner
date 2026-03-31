@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.2'
+ruby '3.2.2'
 
-gem 'rails', '~> 6.1.1'
+gem 'rails', '~> 6.1.7'
 gem 'puma', '~> 5.0'
 gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 5.0'
@@ -34,3 +34,9 @@ group :test do
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem "logger", "~> 1.7"
+gem "net-smtp", "~> 0.5.1"
+gem "net-imap", "~> 0.6.3"
+gem "net-pop", "~> 0.1.2"
+gem "matrix", "~> 0.4.3"
