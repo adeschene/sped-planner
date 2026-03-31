@@ -22,6 +22,6 @@
 	</div>
 
 	<div class="form-group">
-		<%= form.submit "Submit", class: "btn btn-success border-dark" %>
+		<%= form.submit activity.persisted? ? "Save Changes" : "Add Activity", class: "btn btn-success border-dark" %>
 	</div>
 <% end %>

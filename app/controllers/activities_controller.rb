@@ -4,12 +4,15 @@ class ActivitiesController < ApplicationController
   before_action :find_activity, only: [:show, :edit, :update, :destroy]
 
   def day
+    params[:start_date] ||= next_weekday.to_s
   end
 
   def week
+    params[:start_date] ||= next_weekday.to_s
   end
 
   def month
+    params[:start_date] ||= next_weekday.to_s
   end
 
   def show
@@ -60,5 +63,10 @@ class ActivitiesController < ApplicationController
   private
     def activity_params
       params.require(:activity).permit(:title, :date, :block)
+    end
+
+    def next_weekday
+      today = Date.today
+      today.wday == 6 ? today + 2 : today.wday == 0 ? today + 1 : today
     end
 end
