@@ -34,7 +34,7 @@
             <td class="text-center">
               <%= button_to timeslot_path(timeslot), method: :delete,
                     class: "btn btn-sm #{ Activity.where(block: timeslot.position).exists? ? 'btn-outline-secondary disabled' : 'btn-outline-danger' }",
-                    data: { confirm: Activity.where(block: timeslot.position).exists? ? nil : "Delete \"#{timeslot.label}\"?" },
+                    data: { turbo_confirm: Activity.where(block: timeslot.position).exists? ? nil : "Delete \"#{timeslot.label}\"?" },
                     disabled: Activity.where(block: timeslot.position).exists? do %>
                 <i class="bi bi-trash"></i>
               <% end %>

@@ -1,47 +1,57 @@
-<%# Disable turbolinks for this page %>
+<%# Disable Turbo page caching for this page %>
 <% content_for(:body_attributes) do %>
-  data-turbolinks="false"
+  data-turbo-cache="false"
 <% end %>
 
-<div class="card w-100 mt-5 mb-5 mx-auto text-white bg-dark bg-gradient">
-  <div class="card-header fs-2 fw-bold py-2 text-center">
-  	<%= @activity.title %>
+<% timeslot_label = Timeslot.find_by(position: @activity.block)&.label %>
+
+<div style="max-width: 900px; margin: 0 auto;">
+
+<div class="card w-100 mt-3 mb-3 mx-auto text-white bg-dark bg-gradient">
+  <div class="card-header py-3 text-center">
+    <div class="fs-2 fw-bold"><%= @activity.title %></div>
+    <div class="text-white-50 fs-6 mt-1">
+      <%= @activity.date.strftime("%B %-d, %Y") %>
+      <% if timeslot_label %>
+        &middot; <%= timeslot_label %>
+      <% end %>
+    </div>
   </div>
   <div class="card-body form-body">
-    <div class="ms-2 mb-5 text-center">
-	    <%= link_to edit_activity_path(@activity), class: "btn btn-primary me-1 border-dark" do %>
-        <i class="bi bi-pencil fs-5"></i>
+    <div class="mb-4 text-center">
+      <%= link_to edit_activity_path(@activity), class: "btn btn-primary me-1 border-dark" do %>
+        <i class="bi bi-pencil fs-5"></i> Edit
       <% end %>
-	    <%= link_to activity_path(@activity), method: :delete, data: { confirm: "Are you sure?" }, class: 'btn btn-danger ms-1 border-dark' do %>
-        <i class="bi bi-trash fs-5"></i>
+      <%= link_to activity_path(@activity), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: 'btn btn-danger ms-1 border-dark' do %>
+        <i class="bi bi-trash fs-5"></i> Delete
       <% end %>
-	  </div>
+    </div>
     <%# Check if there are any notes %>
     <% if @activity.notes.empty? %>
-      <%# If the notes array is empty, make user aware with a card %>
-      <div class="card w-75 mx-auto mb-5 text-dark bg-light">
-        <div class="card-header text-center">
-          <p class="card-text">No notes...</p>
-        </div>
-      </div>
+      <p class="text-center text-white-50 fst-italic">No notes yet.</p>
     <% else %>
-      <%# Otherwise, list all notes as clickable links %>
       <%= render @activity.notes %>
     <% end %>
   </div>
 </div>
 
 <%# New note form rendered in a card %>
-<div class="card w-100 mx-auto mt-5 mb-3 text-white bg-dark bg-gradient">
-  <div class="card-header">
-    <p class="card-text text-center fs-5 fw-bold">Add note</p>
+<div class="card w-100 mx-auto mt-3 mb-3 text-white bg-dark bg-gradient">
+  <div class="card-header text-center fw-semibold">
+    <i class="bi bi-plus-circle me-1"></i>Add Note
   </div>
   <div class="card-body form-body">
     <%= render "notes/form", note: Note.new %>
   </div>
 </div>
 
-<%# Add a back button that redirects back to the week view for the activity's date %>
-<div class="container mb-5 text-center">
-  <%= link_to "Back", week_view_path(:start_date => @activity.date), class: 'btn btn-danger border-dark px-5' %>
+<%# Add a back button that redirects back to the appropriate view for the activity's date %>
+<div class="mb-4 text-center">
+  <% if params[:ref] == 'day' %>
+    <%= link_to "Back", day_view_path(start_date: @activity.date), class: 'btn btn-secondary border-dark px-5' %>
+  <% else %>
+    <%= link_to "Back", week_view_path(start_date: @activity.date), class: 'btn btn-secondary border-dark px-5' %>
+  <% end %>
 </div>
+
+</div><%# end max-width wrapper %>

@@ -7,6 +7,10 @@
     <%= link_to calendar.url_for_next_view, class: "btn btn-primary" do %>
       <i class="bi bi-chevron-double-right"></i>
     <% end %>
+    <% smart_today = Date.today.wday == 6 ? Date.today + 2 : Date.today.wday == 0 ? Date.today + 1 : Date.today %>
+    <%= link_to month_view_path(start_date: smart_today), class: "btn btn-outline-light btn-sm ms-2" do %>
+      <i class="bi bi-calendar-check me-1"></i>Current
+    <% end %>
   </div>
 
   <table class="table table-bordered border-dark">

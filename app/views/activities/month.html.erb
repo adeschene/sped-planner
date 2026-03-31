@@ -1,6 +1,6 @@
-<%# Disable turbolinks for this page %>
+<%# Disable Turbo page caching for this page %>
 <% content_for(:body_attributes) do %>
-  data-turbolinks="false"
+  data-turbo-cache="false"
 <% end %>
 
 <div class="card bg-dark bg-gradient text-white mt-2 mb-3">
@@ -19,8 +19,13 @@
         <%= date.strftime("%d") %>
       </div>
       <% unless activities.empty? %>
-        <div class="text-white fw-bold text-center bg-secondary rounded-pill me-3 ms-3">
-          <%= activities.count %> activities
+        <div class="activity-dots mt-1">
+          <% activities.first(5).each do %>
+            <span class="activity-dot"></span>
+          <% end %>
+          <% if activities.count > 5 %>
+            <span class="activity-dot-overflow">+<%= activities.count - 5 %></span>
+          <% end %>
         </div>
       <% end %>
     </a>
@@ -29,8 +34,8 @@
 <% end %>
 
 <div class="card text-white bg-dark bg-gradient mb-3">
-  <div class="card-header text-center">
-  	Add Activity
+  <div class="card-header text-center fw-semibold">
+    <i class="bi bi-plus-circle me-1"></i>Add Activity
   </div>
   <div class="card-body form-body">
     <%= render 'form', activity: Activity.new %>
@@ -52,7 +57,7 @@
         matched.forEach(function(title) {
           var el = document.createElement('div');
           el.className = 'search-match-title';
-          el.textContent = title.length > 18 ? title.substring(0, 18) + '\u2026' : title;
+          el.textContent = title.length > 28 ? title.substring(0, 28) + '\u2026' : title;
           matchesDiv.appendChild(el);
         });
       }

@@ -1,6 +1,6 @@
-<%# Disable turbolinks for this page %>
+<%# Disable Turbo page caching for this page %>
 <% content_for(:body_attributes) do %>
-  data-turbolinks="false"
+  data-turbo-cache="false"
 <% end %>
 
 <div class="card bg-dark bg-gradient text-white mt-2 mb-3">
@@ -38,8 +38,8 @@
 <% end %>
 
 <div class="card mb-3 text-white bg-dark bg-gradient">
-  <div class="card-header text-center">
-  	Add Activity
+  <div class="card-header text-center fw-semibold">
+    <i class="bi bi-plus-circle me-1"></i>Add Activity
   </div>
   <div class="card-body form-body">
     <%= render 'form', activity: Activity.new %>

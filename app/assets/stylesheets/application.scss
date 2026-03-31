@@ -1,0 +1,18 @@
+// Sassy
+@import "simple_calendar";
+@import "activity";
+@import "note";
+
+body {
+  background: linear-gradient(160deg, #f2a7cb 0%, #d4619a 100%);
+  min-height: 100vh;
+}
+
+textarea {
+  overflow-wrap: break-word;
+  outline-style: solid;
+  outline-width: 2px;
+  padding: 10px;
+  vertical-align: top;
+  width: 200px;
+}

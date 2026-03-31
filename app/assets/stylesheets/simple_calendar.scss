@@ -33,10 +33,12 @@ $three-color: #522e38;
     box-sizing: border-box;
     max-width: 100%;
     width: 100%;
+    height: 75vh;
   }
 
   tr {
     border-collapse: collapse;
+    height: 1%;
   }
 
   th {
@@ -187,18 +189,50 @@ $three-color: #522e38;
 
   .month-day-cell {
     height: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .search-matches {
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+    right: 4px;
+  }
+
+  .activity-dots {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    padding: 0 4px;
+  }
+
+  .activity-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: $lunch-color;
+    opacity: 0.85;
+  }
+
+  .activity-dot-overflow {
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: $lunch-color;
+    line-height: 8px;
   }
 
   .search-highlight {
-    outline: 2px solid #ffc107;
+    outline: 2px solid #10f495;
     border-radius: 4px;
   }
 
   .search-match-title {
-    font-size: 0.62rem;
+    font-size: 1rem;
     font-weight: 600;
     color: #212529;
-    background: #ffc107;
+    background: #10f495;
     border-radius: 3px;
     padding: 1px 4px;
     margin-top: 2px;
