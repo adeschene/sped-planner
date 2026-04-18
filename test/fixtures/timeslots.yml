@@ -1,0 +1,7 @@
+morning:
+  label: Morning Block
+  position: 1
+
+afternoon:
+  label: Afternoon Block
+  position: 2
