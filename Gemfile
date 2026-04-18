@@ -1,20 +1,22 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.2.2'
+ruby '~> 3.2.0'
 
-gem 'rails', '~> 6.1.7'
-gem 'puma', '~> 5.0'
-gem 'sass-rails', '>= 6'
-gem 'webpacker', '~> 5.0'
-gem 'turbolinks', '~> 5'
-gem 'jbuilder', '~> 2.7'
-gem "simple_calendar", "~> 2.0"
-
-gem 'bootsnap', '>= 1.4.4', require: false
+gem 'rails', '~> 7.1.0'
+gem 'puma', '~> 6.0'
+gem 'bcrypt', '~> 3.1.7'
+gem 'dartsass-rails'
+gem 'importmap-rails'
+gem 'turbo-rails'
+gem 'stimulus-rails'
+gem 'jbuilder', '~> 2.11'
+gem 'simple_calendar', '~> 3.0'
+gem 'bootsnap', require: false
+gem 'sprockets-rails'
 
 group :production do
-  gem 'pg', '~> 1.2', '>= 1.2.3'
+  gem 'pg', '~> 1.5'
 end
 
 group :development, :test do
@@ -22,21 +24,14 @@ group :development, :test do
 end
 
 group :development do
-  gem 'web-console', '>= 4.1.0'
-  gem 'rack-mini-profiler', '~> 2.0'
-  gem 'sqlite3', '~> 1.4'
+  gem 'web-console'
+  gem 'rack-mini-profiler'
+  gem 'sqlite3', '~> 1.6'
 end
 
 group :test do
-  gem 'capybara', '>= 3.26'
+  gem 'capybara'
   gem 'selenium-webdriver'
-  gem 'webdrivers'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-gem "logger", "~> 1.7"
-gem "net-smtp", "~> 0.5.1"
-gem "net-imap", "~> 0.6.3"
-gem "net-pop", "~> 0.1.2"
-gem "matrix", "~> 0.4.3"
