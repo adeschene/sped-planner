@@ -89,7 +89,9 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.hosts << "planner.oddbox.tech"
-  config.hosts << "172.19.0.2" # Add the internal IP too
+  # Allow any host on the proxy_network subnet so NPM's upstream requests
+  # aren't rejected if Docker renumbers the bridge on recreate.
+  config.hosts << /\A172\.19\.\d+\.\d+\z/
 
   # Enable DNS rebinding protection and other `Host` header attacks.
   # config.hosts = [
