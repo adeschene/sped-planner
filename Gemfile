@@ -32,6 +32,10 @@ end
 group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
+  # minitest 6.x changed Minitest::Test.run's signature; rails 7.1's
+  # line_filtering patch still calls the 5.x signature and blows up.
+  # Pin to the compatible series.
+  gem 'minitest', '~> 5.0'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

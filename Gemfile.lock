@@ -149,9 +149,7 @@ GEM
     matrix (0.4.3)
     mini_mime (1.1.5)
     mini_portile2 (2.8.9)
-    minitest (6.0.2)
-      drb (~> 2.0)
-      prism (~> 1.5)
+    minitest (5.27.0)
     msgpack (1.8.0)
     mutex_m (0.3.0)
     net-imap (0.6.3)
@@ -295,6 +293,7 @@ DEPENDENCIES
   dartsass-rails
   importmap-rails
   jbuilder (~> 2.11)
+  minitest (~> 5.0)
   pg (~> 1.5)
   puma (~> 6.0)
   rack-mini-profiler
