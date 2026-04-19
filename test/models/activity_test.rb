@@ -22,4 +22,35 @@ class ActivityTest < ActiveSupport::TestCase
       activity.destroy
     end
   end
+
+  # ---------------------------------------------------------------------------
+  # Association — non-standard FK (block / position)
+  # ---------------------------------------------------------------------------
+
+  test "resolves timeslot via block/position foreign key" do
+    assert_equal timeslots(:morning), activities(:one).timeslot
+  end
+
+  test "timeslot is optional — valid when block has no matching timeslot" do
+    activity = Activity.new(title: "Orphan", date: Date.today, block: 999)
+    assert activity.valid?
+  end
+
+  # ---------------------------------------------------------------------------
+  # default_scope ordering
+  # ---------------------------------------------------------------------------
+
+  test "orders by block ascending by default" do
+    blocks = Activity.all.map(&:block)
+    assert_equal blocks.sort, blocks
+  end
+
+  # ---------------------------------------------------------------------------
+  # start_time
+  # ---------------------------------------------------------------------------
+
+  test "start_time returns the activity date" do
+    activity = activities(:one)
+    assert_equal activity.date, activity.start_time
+  end
 end
