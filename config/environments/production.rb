@@ -89,7 +89,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.hosts << "planner.oddbox.tech"
-  config.hosts << "planner-staging.oddbox.tech"
   # Allow any host on the proxy_network subnet so NPM's upstream requests
   # aren't rejected if Docker renumbers the bridge on recreate.
   config.hosts << /\A172\.19\.\d+\.\d+\z/
