@@ -12,19 +12,21 @@ class PlanningFlowTest < ApplicationSystemTestCase
     click_button "Log In"
     assert_button "Add Activity"
 
-    # Fill in the create form at the bottom of the week view.
-    # Use a weekday — the calendar only renders Mon–Fri, matching the
-    # controller's next_weekday default.
+    # Use a weekday — the calendar only renders Mon–Fri.
     activity_date = Date.current
     activity_date += 2 if activity_date.saturday?
     activity_date += 1 if activity_date.sunday?
+
+    # Navigate to the specific week so params[:start_date] is set.
+    # The form's date_placeholder reads params[:start_date] and pre-fills the
+    # date field — avoids fighting Chrome's date input format with .set().
+    visit week_view_url(start_date: activity_date)
+
     fill_in "Type description here...", with: "Test Activity"
     select timeslots(:morning).label, from: "activity_block"
-    find("#activity_date").set(activity_date.to_s)
     click_button "Add Activity"
 
-    # Navigate to the week containing the new activity and confirm it appears
-    visit week_view_url(start_date: activity_date)
+    # redirect_back returns to the same week view; activity should appear
     assert_text "Test Activity"
 
     # Click through to the show page
