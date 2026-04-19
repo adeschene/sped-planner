@@ -40,3 +40,6 @@ yarn-debug.log*
 .yarn-integrity
 postgres_data/
 .env
+
+# Claude Code per-user settings (permission allow-lists, etc.) — never commit.
+.claude/settings.local.json
