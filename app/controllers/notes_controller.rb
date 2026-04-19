@@ -20,7 +20,7 @@ class NotesController < ApplicationController
       redirect_to @note.activity, notice: "Note successfully updated!"
     else
       flash.now[:alert] = "Something still needs to be filled out..."
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
