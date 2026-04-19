@@ -16,8 +16,9 @@ class ActivityTest < ActiveSupport::TestCase
 
   test "destroys associated notes when destroyed" do
     activity = activities(:one)
-    activity.notes.create!(body: "transient")
-    assert_difference -> { Note.count }, -1 do
+    note_count = activity.notes.count
+    assert_operator note_count, :>, 0, "fixture should give activities(:one) at least one note"
+    assert_difference -> { Note.count }, -note_count do
       activity.destroy
     end
   end
