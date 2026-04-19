@@ -1,6 +1,6 @@
 class ActivitiesController < ApplicationController
   before_action :get_activities, only: [:day, :week, :month]
-  before_action :get_timeslots, only: [:day, :week, :month, :edit]
+  before_action :get_timeslots, only: [:day, :week, :month, :edit, :update]
   before_action :find_activity, only: [:show, :edit, :update, :destroy]
 
   def day
@@ -36,7 +36,7 @@ class ActivitiesController < ApplicationController
       redirect_to @activity, notice: "Activity successfully updated!"
     else
       flash.now[:alert] = "Something still needs to be filled out..."
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
