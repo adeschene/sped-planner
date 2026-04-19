@@ -12,8 +12,12 @@ class PlanningFlowTest < ApplicationSystemTestCase
     click_button "Log In"
     assert_button "Add Activity"
 
-    # Fill in the create form at the bottom of the week view
+    # Fill in the create form at the bottom of the week view.
+    # Use a weekday — the calendar only renders Mon–Fri, matching the
+    # controller's next_weekday default.
     activity_date = Date.current
+    activity_date += 2 if activity_date.saturday?
+    activity_date += 1 if activity_date.sunday?
     fill_in "Type description here...", with: "Test Activity"
     select timeslots(:morning).label, from: "activity_block"
     find("#activity_date").set(activity_date.to_s)
