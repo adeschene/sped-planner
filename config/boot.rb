@@ -1,3 +1,9 @@
+ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../Gemfile', __dir__)
+
+require "bundler/setup" # Set up gems listed in the Gemfile.
+
+# Requires must come AFTER bundler/setup so Bundler can route to the
+# Gemfile-pinned version rather than a pre-activated stdlib default gem.
 require "logger"
 require "yaml"
 require "psych"
@@ -14,7 +20,4 @@ module Psych
   end
 end
 
-ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../Gemfile', __dir__)
-
-require "bundler/setup" # Set up gems listed in the Gemfile.
 require "bootsnap/setup" # Speed up boot time by caching expensive operations.
