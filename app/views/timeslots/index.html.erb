@@ -1,6 +1,26 @@
 <div class="card text-white bg-dark bg-gradient mt-3 mb-3">
   <div class="card-header text-center fs-5 fw-bold">
-    Timeslot Settings
+    General
+  </div>
+  <div class="card-body">
+    <div class="d-flex align-items-center gap-3">
+      <label class="form-label mb-0 text-nowrap">Theme</label>
+      <%= form_with url: update_theme_path, method: :patch do |f| %>
+        <%= f.select :theme,
+              [["Pink (Default)", "default"], ["Garden Greens", "garden"],
+               ["Sunny Citrus", "citrus"], ["Ocean", "ocean"],
+               ["Wildflower Meadow", "wildflower"]],
+              { selected: current_user&.theme },
+              class: "form-select form-select-sm text-bg-dark border-secondary",
+              onchange: "this.form.submit()" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="card text-white bg-dark bg-gradient mt-3 mb-3">
+  <div class="card-header text-center fs-5 fw-bold">
+    Timeslots
   </div>
   <div class="card-body">
     <p class="text-white-50 mb-3">

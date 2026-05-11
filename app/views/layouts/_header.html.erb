@@ -21,26 +21,6 @@
             aria: { current: request.path == timeslots_path ? 'page' : false } do %>
         <i class="bi bi-gear me-1"></i>Settings
       <% end %>
-
-      <div class="dropdown">
-        <button class="btn btn-sm rounded-pill btn-outline-light dropdown-toggle"
-                type="button" data-bs-toggle="dropdown" aria-expanded="false">
-          <i class="bi bi-palette me-1"></i>Theme
-        </button>
-        <ul class="dropdown-menu dropdown-menu-dark">
-          <% [["default", "Pink (Default)"], ["garden", "Garden Greens"],
-              ["citrus", "Sunny Citrus"], ["ocean", "Ocean"],
-              ["wildflower", "Wildflower Meadow"]].each do |value, label| %>
-            <li>
-              <%= button_to label, update_theme_path,
-                    method: :patch,
-                    params: { theme: value },
-                    class: "dropdown-item #{'active' if current_user&.theme == value}",
-                    form_class: "d-block border-0 p-0 m-0" %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
     </div>
   </div>
 </nav>
