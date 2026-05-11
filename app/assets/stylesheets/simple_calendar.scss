@@ -1,29 +1,3 @@
-$monday-color: #fad2e1;
-$tuesday-color: #fdfcdc;
-$wednesday-color: #fed9b7;
-$thursday-color: #f8ad9d;
-$friday-color: #99c1de;
-$weekend-color: #FFFFFF;
-
-$today-color: #c71f37;
-
-$date-color: #323031;
-$events-date-color: #5c8001;
-$date-hover-color: #90be6d;
-$past-color: #d8e2dc;
-$other-month-color: #cccccc;
-
-$block-item-color: #ebebeb;
-$block-item-fg-color: black;
-
-$nine-thirty-color: #ff9ebb;
-$ten-thirty-color: #ff7aa2;
-$eleven-thirty-color: #e05780;
-$lunch-color: #b9375e;
-$one-color: #8a2846;
-$two-color: #602437;
-$three-color: #522e38;
-
 .simple-calendar {
   table {
     -webkit-border-horizontal-spacing: 0px;
@@ -55,7 +29,7 @@ $three-color: #522e38;
     width: 14.285%;
 
     .date-color {
-      color: $date-color;
+      color: var(--date-color);
     }
 
     a {
@@ -71,13 +45,13 @@ $three-color: #522e38;
     }
 
     .block-header {
-      color: white;
+      color: var(--block-header-fg);
       font-size: 1.15rem;
     }
 
     .block-item {
-      background: $block-item-color;
-      color: $block-item-fg-color;
+      background: var(--block-item-color);
+      color: var(--block-item-fg-color);
     }
   }
 
@@ -85,7 +59,7 @@ $three-color: #522e38;
     min-height: 100px;
 
     .date-color {
-      color: $date-color;
+      color: var(--date-color);
     }
 
     .badge {
@@ -95,97 +69,57 @@ $three-color: #522e38;
 
     :hover {
       .badge {
-        background: $date-hover-color;
-        color: white;
+        background: var(--date-hover-color);
+        color: var(--date-color);
       }
     }
   }
 
-  .wday-0 {
-    background: $weekend-color;
-  }
-  .wday-1 {
-    background: $monday-color;
-  }
-  .wday-2 {
-    background: $tuesday-color;
-  }
-  .wday-3 {
-    background: $wednesday-color;
-  }
-  .wday-4 {
-    background: $thursday-color;
-  }
-  .wday-5 {
-    background: $friday-color;
-  }
-  .wday-6 {
-    background: $weekend-color;
-  }
+  .wday-0 { background: var(--weekend-color); }
+  .wday-1 { background: var(--monday-color); }
+  .wday-2 { background: var(--tuesday-color); }
+  .wday-3 { background: var(--wednesday-color); }
+  .wday-4 { background: var(--thursday-color); }
+  .wday-5 { background: var(--friday-color); }
+  .wday-6 { background: var(--weekend-color); }
 
   .start-date {}
 
-  .prev-month {
-    background: $other-month-color;
-  }
-  .next-month {
-    background: $other-month-color;
-  }
+  .prev-month { background: var(--other-month-color); }
+  .next-month { background: var(--other-month-color); }
   .current-month {}
 
-  .past {
-    background: $past-color;
-  }
-  
+  .past { background: var(--past-color); }
+
   .future {}
 
   .has-events {
     .date-color {
-      color: $events-date-color;
+      color: var(--events-date-color);
     }
   }
 
   .today {
     b {
-      background: $today-color;
+      background: var(--today-color);
       color: white;
       border-radius: 100%;
       padding: 0.25em 0.35em;
     }
 
     .badge {
-      background: $today-color;
+      background: var(--today-color);
       color: white;
     }
   }
 
-  .nine_thirty_block {
-    background: $nine-thirty-color;
-  }
-
-  .ten_thirty_block {
-    background: $ten-thirty-color;
-  }
-
-  .eleven_thirty_block {
-    background: $eleven-thirty-color;
-  }
-
-  .lunch_block {
-    background: $lunch-color;
-  }
-
-  .one_block {
-    background: $one-color;
-  }
-
-  .two_block {
-    background: $two-color;
-  }
-
-  .three_block {
-    background: $three-color;
-  }
+  .nine_thirty_block   { background: var(--nine-thirty-color); }
+  .ten_thirty_block    { background: var(--ten-thirty-color); }
+  .eleven_thirty_block { background: var(--eleven-thirty-color); }
+  .lunch_block         { background: var(--lunch-color); }
+  .one_block           { background: var(--one-color); }
+  .two_block           { background: var(--two-color); }
+  .three_block         { background: var(--three-color); }
 
   .month-day-cell {
     height: 100%;
@@ -212,14 +146,14 @@ $three-color: #522e38;
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: $lunch-color;
+    background: var(--activity-dot-color);
     opacity: 0.85;
   }
 
   .activity-dot-overflow {
     font-size: 0.6rem;
     font-weight: 700;
-    color: $lunch-color;
+    color: var(--activity-dot-color);
     line-height: 8px;
   }
 

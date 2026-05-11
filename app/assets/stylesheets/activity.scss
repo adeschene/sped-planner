@@ -2,10 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
-$form-body-fg: black;
-$form-body-bg: #e0aaff;
-
 .form-body {
-	background: $form-body-bg;
-	color: $form-body-fg;
+  background: var(--form-body-bg);
+  color: black;
 }

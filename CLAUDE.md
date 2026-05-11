@@ -185,6 +185,8 @@ Optional but good hygiene — otherwise the next feature branch cut from `stagin
 - **Admin bypass is a sharp tool.** Regular `git push` to `main` from the command line *will land* despite the PR and status-check requirements — the remote only emits a "Bypassed rule violations" warning. Force-push and branch deletion are blocked regardless. In practice this means: don't try to push to `main` from here as a "test" of protection, and don't let your fingers wander after a rebase that leaves you one-push-away from bypassing your own gates.
 - **Load-bearing runtime invariant from CI setup:** `config/boot.rb` must have `require "bundler/setup"` *before* `require "logger"` / `require "yaml"` / `require "psych"`. Otherwise Ruby pre-activates the stdlib default `logger` gem before Bundler can route to the Gemfile-pinned version, and CI explodes with "already activated logger X.Y.Z" on GitHub Actions runners (the Docker image hides it because its bundle install changes gem search order). Don't "tidy up" boot.rb by moving those requires back to the top.
 
+- **Never run `bin/rails test` inside the staging container.** The container runs `RAILS_ENV=production`, and the `POSTGRES_*` env vars point at `planner_production_staging`. When Rails tries to set up the test DB it falls back to that connection, loads fixtures into it, and wipes all real data. Recovery requires a full prod DB restore (see Refresh workflow below). Tests belong in CI — GitHub Actions provides a clean Postgres service container. If local test runs are needed before pushing, run them in a proper dev environment outside the staging stack.
+
 ## Test coverage policy
 
 Every PR that adds a feature or restructures an existing one must include a test plan that accounts for all affected code paths. This is not optional and is not implied by "the feature works" — it must be explicit.
@@ -266,7 +268,8 @@ Do this before running `docker compose up -d --build` when the goal is to reprod
 
 ## Schema gotcha (inherited from prod)
 
-- `db/schema.rb` is pinned at `2021_01_24_092131`; the live DB is at `20260331202702`. **Do not run `bin/rails db:schema:load` on a fresh staging DB** — it would recreate an empty pre-users, pre-timeslots schema.
+- `db/schema.rb` is at `20260331202702`. Any migration added after that version will be pending after a `db:schema:load` and must be applied with `db:migrate`.
+- The CI workflow runs `db:test:prepare && db:migrate` for exactly this reason — schema load gives the base, migrate picks up anything newer.
 - Use `bin/rails db:migrate` or let the compose `command:` run `db:prepare` on boot. See `../sped-planner/CLAUDE.md` → "Schema & migrations — big gotcha" for background.
 
 ## Internal verification
