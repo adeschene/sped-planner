@@ -8,7 +8,7 @@
 // activity.scss, and the body gradient below.
 
 :root {
-  // Default: pink / mauve (original palette)
+  // Default: pink / mauve
   --body-bg-start:       #f2a7cb;
   --body-bg-end:         #d4619a;
   --monday-color:        #fad2e1;
@@ -19,21 +19,21 @@
   --weekend-color:       #ffffff;
   --today-color:         #c71f37;
   --date-color:          #323031;
-  --events-date-color:   #5c8001;
+  --events-date-color:   #3d5200;
   --date-hover-color:    #90be6d;
   --past-color:          #d8e2dc;
   --other-month-color:   #cccccc;
   --block-item-color:    #ebebeb;
   --block-item-fg-color: black;
   --block-header-fg:     white;
-  --nine-thirty-color:   #ff9ebb;
-  --ten-thirty-color:    #ff7aa2;
-  --eleven-thirty-color: #e05780;
-  --lunch-color:         #b9375e;
+  --nine-thirty-color:   #c24468;
+  --ten-thirty-color:    #b03a62;
+  --eleven-thirty-color: #9e2e5a;
+  --lunch-color:         #8c2250;
   --one-color:           #8a2846;
   --two-color:           #602437;
   --three-color:         #522e38;
-  --activity-dot-color:  #b9375e;
+  --activity-dot-color:  #8c2250;
   --form-body-bg:        #e0aaff;
 }
 
@@ -55,15 +55,15 @@
   --other-month-color:   #cfd8dc;
   --block-item-color:    #f1f8e9;
   --block-item-fg-color: #1b2b1c;
-  --block-header-fg:     #1b4020;
-  --nine-thirty-color:   #c8e6c9;
-  --ten-thirty-color:    #a5d6a7;
-  --eleven-thirty-color: #81c784;
-  --lunch-color:         #4caf50;
-  --one-color:           #388e3c;
-  --two-color:           #2e7d32;
-  --three-color:         #1b5e20;
-  --activity-dot-color:  #4caf50;
+  --block-header-fg:     white;
+  --nine-thirty-color:   #2e8034;
+  --ten-thirty-color:    #256e2a;
+  --eleven-thirty-color: #1e5c24;
+  --lunch-color:         #184c1e;
+  --one-color:           #143c18;
+  --two-color:           #102e12;
+  --three-color:         #0c220e;
+  --activity-dot-color:  #2e8034;
   --form-body-bg:        #c8e6c9;
 }
 
@@ -77,7 +77,7 @@
   --thursday-color:      #fce4ec;
   --friday-color:        #f3e5f5;
   --weekend-color:       #ffffff;
-  --today-color:         #e65100;
+  --today-color:         #b54000;
   --date-color:          #2c1810;
   --events-date-color:   #bf360c;
   --date-hover-color:    #ffb74d;
@@ -85,15 +85,15 @@
   --other-month-color:   #e0e0e0;
   --block-item-color:    #fff9c4;
   --block-item-fg-color: #2c1810;
-  --block-header-fg:     #3d1a00;
-  --nine-thirty-color:   #fff176;
-  --ten-thirty-color:    #ffee58;
-  --eleven-thirty-color: #ffca28;
-  --lunch-color:         #ffa726;
-  --one-color:           #fb8c00;
-  --two-color:           #e65100;
-  --three-color:         #bf360c;
-  --activity-dot-color:  #ffa726;
+  --block-header-fg:     white;
+  --nine-thirty-color:   #a85200;
+  --ten-thirty-color:    #974800;
+  --eleven-thirty-color: #863e00;
+  --lunch-color:         #763400;
+  --one-color:           #662a00;
+  --two-color:           #562000;
+  --three-color:         #461800;
+  --activity-dot-color:  #a85200;
   --form-body-bg:        #ffe082;
 }
 
@@ -115,15 +115,15 @@
   --other-month-color:   #cfd8dc;
   --block-item-color:    #e1f5fe;
   --block-item-fg-color: #0d1b2a;
-  --block-header-fg:     #012a3a;
-  --nine-thirty-color:   #b2ebf2;
-  --ten-thirty-color:    #80deea;
-  --eleven-thirty-color: #4dd0e1;
-  --lunch-color:         #26c6da;
-  --one-color:           #0097a7;
-  --two-color:           #00838f;
-  --three-color:         #006064;
-  --activity-dot-color:  #26c6da;
+  --block-header-fg:     white;
+  --nine-thirty-color:   #187890;
+  --ten-thirty-color:    #156882;
+  --eleven-thirty-color: #125874;
+  --lunch-color:         #0f4866;
+  --one-color:           #0c3858;
+  --two-color:           #09284a;
+  --three-color:         #061e38;
+  --activity-dot-color:  #187890;
   --form-body-bg:        #b2ebf2;
 }
 
@@ -140,20 +140,20 @@
   --today-color:         #6a1b9a;
   --date-color:          #1a0527;
   --events-date-color:   #4a148c;
-  --date-hover-color:    #ab47bc;
+  --date-hover-color:    #b060bc;
   --past-color:          #f5f5f5;
   --other-month-color:   #e0e0e0;
   --block-item-color:    #f3e5f5;
   --block-item-fg-color: #1a0527;
   --block-header-fg:     white;
-  --nine-thirty-color:   #ba68c8;
-  --ten-thirty-color:    #ab47bc;
-  --eleven-thirty-color: #9c27b0;
-  --lunch-color:         #8e24aa;
-  --one-color:           #7b1fa2;
-  --two-color:           #6a1b9a;
-  --three-color:         #4a148c;
-  --activity-dot-color:  #8e24aa;
+  --nine-thirty-color:   #9b3daa;
+  --ten-thirty-color:    #8c35a0;
+  --eleven-thirty-color: #7d2e96;
+  --lunch-color:         #6e268c;
+  --one-color:           #5f1e82;
+  --two-color:           #501878;
+  --three-color:         #41126e;
+  --activity-dot-color:  #9b3daa;
   --form-body-bg:        #e1bee7;
 }
 

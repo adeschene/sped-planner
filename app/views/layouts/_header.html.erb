@@ -3,7 +3,7 @@
 
     <div class="position-absolute start-50 translate-middle-x d-flex gap-2">
       <% if request.path == month_view_path %>
-        <span class="btn btn-sm rounded-pill btn-light" aria-current="page">
+        <span class="btn btn-sm rounded-pill btn-light" aria-current="page" style="pointer-events: none;">
           <i class="bi bi-calendar-month me-1"></i>Month
         </span>
       <% else %>
@@ -14,7 +14,7 @@
       <% end %>
 
       <% if request.path == week_view_path %>
-        <span class="btn btn-sm rounded-pill btn-light" aria-current="page">
+        <span class="btn btn-sm rounded-pill btn-light" aria-current="page" style="pointer-events: none;">
           <i class="bi bi-calendar-week me-1"></i>Week
         </span>
       <% else %>
@@ -25,7 +25,7 @@
       <% end %>
 
       <% if request.path == day_view_path %>
-        <span class="btn btn-sm rounded-pill btn-light" aria-current="page">
+        <span class="btn btn-sm rounded-pill btn-light" aria-current="page" style="pointer-events: none;">
           <i class="bi bi-calendar-day me-1"></i>Day
         </span>
       <% else %>
@@ -38,7 +38,7 @@
 
     <div class="ms-auto">
       <% if request.path == timeslots_path %>
-        <span class="btn btn-sm rounded-pill btn-light" aria-current="page">
+        <span class="btn btn-sm rounded-pill btn-light" aria-current="page" style="pointer-events: none;">
           <i class="bi bi-gear me-1"></i>Settings
         </span>
       <% else %>
