@@ -85,14 +85,14 @@
   --other-month-color:   #e0e0e0;
   --block-item-color:    #fff9c4;
   --block-item-fg-color: #2c1810;
-  --block-header-fg:     white;
-  --nine-thirty-color:   #a85200;
-  --ten-thirty-color:    #974800;
-  --eleven-thirty-color: #863e00;
-  --lunch-color:         #763400;
-  --one-color:           #662a00;
-  --two-color:           #562000;
-  --three-color:         #461800;
+  --block-header-fg:     #3d1a00;
+  --nine-thirty-color:   #fff176;
+  --ten-thirty-color:    #ffee58;
+  --eleven-thirty-color: #ffca28;
+  --lunch-color:         #ffa726;
+  --one-color:           #fb8c00;
+  --two-color:           #e65100;
+  --three-color:         #bf360c;
   --activity-dot-color:  #a85200;
   --form-body-bg:        #ffe082;
 }
@@ -156,6 +156,13 @@
   --activity-dot-color:  #9b3daa;
   --form-body-bg:        #e1bee7;
 }
+
+// Citrus: two darkest blocks need individual text colors since the gradient
+// spans a range where no single color passes 4.5:1 at both ends.
+// #e65100 (two): neither white (3.5:1) nor dark brown (4.0:1) passes — use black.
+// #bf360c (three): only white passes (5.2:1).
+[data-theme="citrus"] .two_block.block-header   { color: #000000; }
+[data-theme="citrus"] .three_block.block-header { color: white; }
 
 body {
   background: linear-gradient(160deg, var(--body-bg-start) 0%, var(--body-bg-end) 100%);
