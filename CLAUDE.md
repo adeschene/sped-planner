@@ -268,7 +268,8 @@ Do this before running `docker compose up -d --build` when the goal is to reprod
 
 ## Schema gotcha (inherited from prod)
 
-- `db/schema.rb` is pinned at `2021_01_24_092131`; the live DB is at `20260331202702`. **Do not run `bin/rails db:schema:load` on a fresh staging DB** — it would recreate an empty pre-users, pre-timeslots schema.
+- `db/schema.rb` is at `20260331202702`. Any migration added after that version will be pending after a `db:schema:load` and must be applied with `db:migrate`.
+- The CI workflow runs `db:test:prepare && db:migrate` for exactly this reason — schema load gives the base, migrate picks up anything newer.
 - Use `bin/rails db:migrate` or let the compose `command:` run `db:prepare` on boot. See `../sped-planner/CLAUDE.md` → "Schema & migrations — big gotcha" for background.
 
 ## Internal verification
