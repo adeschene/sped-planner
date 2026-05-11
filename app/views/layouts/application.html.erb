@@ -22,9 +22,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc4s9bIOgUxi8T/jzmAJ4qPi7y20JN4/3g8VBNEFxSFq" crossorigin="anonymous" data-turbo-track="reload"></script>
   </head>
 
-  <body 
+  <body data-theme="<%= current_user&.theme || 'default' %>"
     <% if content_for?(:body_attributes) %>
-      <%= yield(:body_attributes) %> 
+      <%= yield(:body_attributes) %>
     <% end %>
   >
     <!-- Render header partial above all pages -->

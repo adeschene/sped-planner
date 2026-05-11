@@ -14,4 +14,6 @@ Rails.application.routes.draw do
   end
 
   resources :timeslots, only: [:index, :create, :update, :destroy]
+
+  patch '/theme', to: 'users#update_theme', as: :update_theme
 end
