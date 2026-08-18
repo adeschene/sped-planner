@@ -131,6 +131,30 @@ class ActivitiesControllerTest < ActionDispatch::IntegrationTest
     assert_equal "Something still needs to be filled out...", flash[:alert]
   end
 
+  test "POST create with a note body creates both Activity and Note" do
+    sign_in_as(@alice)
+    assert_difference ["Activity.count", "Note.count"] do
+      post activities_path,
+        params: { activity: { title: "With Note", date: "2026-05-01", block: 1,
+                              notes_attributes: { "0" => { body: "My first note" } } } },
+        headers: { "HTTP_REFERER" => week_view_url }
+    end
+    assert_redirected_to week_view_url
+  end
+
+  test "POST create with blank note body creates Activity but no Note" do
+    sign_in_as(@alice)
+    assert_difference "Activity.count" do
+      assert_no_difference "Note.count" do
+        post activities_path,
+          params: { activity: { title: "No Note", date: "2026-05-01", block: 1,
+                                notes_attributes: { "0" => { body: "" } } } },
+          headers: { "HTTP_REFERER" => week_view_url }
+      end
+    end
+    assert_redirected_to week_view_url
+  end
+
   # ---------------------------------------------------------------------------
   # update
   # ---------------------------------------------------------------------------

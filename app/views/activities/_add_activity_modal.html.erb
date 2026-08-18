@@ -1,0 +1,62 @@
+<div class="modal fade" id="add-activity-modal" tabindex="-1"
+     aria-labelledby="add-activity-modal-label" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-dark text-white">
+        <h5 class="modal-title" id="add-activity-modal-label">
+          <i class="bi bi-plus-circle me-1"></i>Add Activity
+        </h5>
+        <button type="button" class="btn-close btn-close-white"
+                data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= form_with model: Activity.new, url: activities_path do |form| %>
+          <%= form.hidden_field :date %>
+
+          <div class="mb-3">
+            <%= form.text_field :title,
+                  class: "form-control",
+                  placeholder: "Description" %>
+          </div>
+
+          <div class="mb-3">
+            <%= form.select :block,
+                  options_for_select(@timeslots.map { |t| [t.label, t.position] }),
+                  { prompt: "Select Timeslot" },
+                  { class: "form-select" } %>
+          </div>
+
+          <div class="mb-3">
+            <%= form.fields_for :notes, Note.new do |note_form| %>
+              <%= note_form.text_area :body,
+                    class: "form-control",
+                    placeholder: "Add a note (optional)",
+                    rows: 2 %>
+            <% end %>
+          </div>
+
+          <div class="d-flex justify-content-end gap-2">
+            <button type="button" class="btn btn-secondary"
+                    data-bs-dismiss="modal">Cancel</button>
+            <%= form.submit "Add Activity", class: "btn btn-success border-dark" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    var modal = document.getElementById('add-activity-modal');
+    modal.addEventListener('show.bs.modal', function(event) {
+      var trigger = event.relatedTarget;
+      if (!trigger) return;
+      modal.querySelector('#activity_date').value = trigger.getAttribute('data-date') || '';
+      modal.querySelector('#activity_block').value = trigger.getAttribute('data-block') || '';
+    });
+    modal.addEventListener('shown.bs.modal', function() {
+      modal.querySelector('#activity_title').focus();
+    });
+  })();
+</script>

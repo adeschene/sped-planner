@@ -11,7 +11,7 @@
 </div>
 
 <%= month_calendar events: @activities do |date, activities| %>
-  <div class="month-day-cell"
+  <div class="month-day-cell position-relative"
        data-date="<%= date.to_s %>"
        data-titles="<%= activities.map(&:title).join('|') %>">
     <a href="<%= day_view_path(:start_date => date) %>">
@@ -29,18 +29,17 @@
         </div>
       <% end %>
     </a>
+    <button type="button"
+            class="btn btn-sm btn-outline-secondary position-absolute top-0 end-0 add-day-btn"
+            data-bs-toggle="modal" data-bs-target="#add-activity-modal"
+            data-date="<%= date.to_s %>">
+      <i class="bi bi-plus"></i>
+    </button>
     <div class="search-matches"></div>
   </div>
 <% end %>
 
-<div class="card text-white bg-dark bg-gradient mb-3">
-  <div class="card-header text-center fw-semibold">
-    <i class="bi bi-plus-circle me-1"></i>Add Activity
-  </div>
-  <div class="card-body form-body">
-    <%= render 'form', activity: Activity.new %>
-  </div>
-</div>
+<%= render 'add_activity_modal' %>
 
 <script>
   document.getElementById('month-search').addEventListener('input', function() {

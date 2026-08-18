@@ -53,4 +53,21 @@ class ActivityTest < ActiveSupport::TestCase
     activity = activities(:one)
     assert_equal activity.date, activity.start_time
   end
+
+  # ---------------------------------------------------------------------------
+  # Nested note creation via accepts_nested_attributes_for
+  # ---------------------------------------------------------------------------
+
+  test "creates an associated note when notes_attributes body is present" do
+    activity = Activity.create!(title: "With Note", date: Date.today, block: 1,
+                                notes_attributes: [{ body: "hello" }])
+    assert_equal 1, activity.notes.count
+    assert_equal "hello", activity.notes.first.body
+  end
+
+  test "does not create a note when notes_attributes body is blank" do
+    activity = Activity.create!(title: "No Note", date: Date.today, block: 1,
+                                notes_attributes: [{ body: "" }])
+    assert_equal 0, activity.notes.count
+  end
 end

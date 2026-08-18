@@ -1,5 +1,6 @@
 class Activity < ApplicationRecord
   has_many :notes, dependent: :destroy
+  accepts_nested_attributes_for :notes, reject_if: :all_blank
   belongs_to :timeslot, foreign_key: :block, primary_key: :position, optional: true
 
   validates :title, :date, :block, presence: true

@@ -7,8 +7,8 @@
   <div class="card-body text-center">
     <%= form_tag root_path, method: :get do %>
       <%= label_tag :start_date, "Go to the week of: ", class: "align-middle fs-5" %>
-	    <%= date_field_tag :start_date, :start_date, class: "align-middle fs-5" %>
-	    <%= button_tag(type: "submit", class: "btn btn-info") do %>
+      <%= date_field_tag :start_date, :start_date, class: "align-middle fs-5" %>
+      <%= button_tag(type: "submit", class: "btn btn-info") do %>
         <i class="bi bi-search"></i>
       <% end %>
     <% end %>
@@ -22,26 +22,27 @@
   <% @timeslots.each do |timeslot| %>
     <% @filtered = activities.select{|a| a.block == timeslot.position} %>
     <% @collapseID = "blockID" + timeslot.label.to_s.sub(/:/, '_') + date.to_s %>
-    <% unless @filtered.empty? %>
-      <div class="list-group mb-2">
-        <a href="#<%= @collapseID %>" data-bs-toggle="collapse" class="list-group-item list-group-item-active block-header text-center border-dark <%= block_css_class(timeslot.position) %>" aria-expanded="true" aria-controls="<%= @collapseID %>">
+    <div class="list-group mb-2">
+      <div class="list-group-item list-group-item-active block-header border-dark d-flex align-items-center justify-content-between <%= block_css_class(timeslot.position) %>">
+        <a href="#<%= @collapseID %>" data-bs-toggle="collapse"
+           class="link-light text-decoration-none flex-grow-1 text-center"
+           aria-expanded="true" aria-controls="<%= @collapseID %>">
           <%= timeslot.label %>
         </a>
-        <div id="<%= @collapseID %>" class="collapse show">
-          <% @filtered.each do |activity| %>
-            <%= link_to activity.title.truncate(16), activity, class: "list-group-item list-group-item-action list-group-item-secondary block-item border-dark" %>
-          <% end %>
-        </div>
+        <button type="button" class="btn btn-sm btn-outline-light ms-2"
+                data-bs-toggle="modal" data-bs-target="#add-activity-modal"
+                data-date="<%= date %>" data-block="<%= timeslot.position %>">
+          <i class="bi bi-plus"></i>
+        </button>
       </div>
-    <% end %>
+      <div id="<%= @collapseID %>" class="collapse show">
+        <% @filtered.each do |activity| %>
+          <%= link_to activity.title.truncate(16), activity,
+                class: "list-group-item list-group-item-action list-group-item-secondary block-item border-dark" %>
+        <% end %>
+      </div>
+    </div>
   <% end %>
 <% end %>
 
-<div class="card mb-3 text-white bg-dark bg-gradient">
-  <div class="card-header text-center fw-semibold">
-    <i class="bi bi-plus-circle me-1"></i>Add Activity
-  </div>
-  <div class="card-body form-body">
-    <%= render 'form', activity: Activity.new %>
-  </div>
-</div>
+<%= render 'add_activity_modal' %>
