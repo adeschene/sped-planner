@@ -29,7 +29,7 @@ Both `app` services are on the shared external `proxy_network`. `db` services st
 
 A teacher's daily/weekly/monthly planner. Users log in, create **Activities** (title + date + block), assign them to a **Timeslot** (labeled block of the day), and attach free-form **Notes** to each activity. Views: month, week, day, per-activity show/edit, and a settings page for managing timeslots and theme preferences.
 
-Identity note: the Ruby module is `MomPlanner` (`config/application.rb`), `package.json` name is `mom-planner`, `fly.toml` app name is `sped-planner` — the project was renamed over time. `fly.toml` is historical (prior Fly.io deploy); current deploy is Docker on this VPS.
+Identity note: the Ruby module is `MomPlanner` (`config/application.rb`), `package.json` name is `mom-planner` — the project was renamed over time. Current deploy is Docker on this VPS.
 
 ---
 
@@ -42,7 +42,7 @@ Identity note: the Ruby module is `MomPlanner` (`config/application.rb`), `packa
 - **Themes:** five per-user color themes (default/pink, garden, citrus, ocean, wildflower), persisted in `users.theme`, applied via `data-theme` on `<body>`. All palette values are CSS custom properties in `app/assets/stylesheets/application.scss`.
 - **Auth:** hand-rolled `has_secure_password` (bcrypt) + cookie `session[:user_id]`. No Devise. No signup route — users created via the Rails console only. `ApplicationController` enforces `authenticate_user!` on every action.
 - **Calendar:** `simple_calendar` gem (~> 3.0). Calendar SCSS lives in `app/assets/stylesheets/simple_calendar.scss`.
-- **Legacy / unused:** `webpacker.yml`, `babel.config.js`, `postcss.config.js`, `@rails/webpacker`, `app/javascript/packs/`, `bin/webpack*`, `fly.toml` — vestiges of an older pipeline. Don't add to them.
+- **Legacy / unused:** `yarn.lock`, `app/javascript/channels/` — vestiges of an older pipeline. Don't add to them.
 - **Source baked into the image** — no code bind-mount. Any code change requires `docker compose up -d --build`. `docker compose restart app` does **not** pick up code changes.
 - **Assets precompile at image build** with `SECRET_KEY_BASE_DUMMY=1`. A broken asset reference will fail the build, not boot.
 
@@ -290,8 +290,6 @@ Every PR that adds a feature or restructures an existing one must include an exp
 
 ## Container quirks
 
-- **Storage bind-mount path mismatch (latent bug):** `docker-compose.yml` mounts `./storage:/rails/storage`, but `Dockerfile` sets `WORKDIR /app`. Active Storage writes to `/app/storage` — not the bind-mounted path. No data loss today (no `has_one_attached` in use), but **fix the mount to `./storage:/app/storage` before wiring up attachments**.
-- **`bin/docker-entrypoint`** references `/rails/tmp/pids/server.pid` — unused in practice (compose `command:` overrides CMD). Harmless but misleading.
 - **No `USER` directive** — app container runs as root. `postgres_data/` is owned by the postgres container UID (70 in Alpine); don't `chown` it from the host.
 - **Vestigial `nginx-proxy-manager_default` network** in `docker-compose.yml` — inherited from prod, kept to stay a mirror. Safe to remove when prod removes it.
 
@@ -301,7 +299,7 @@ Every PR that adds a feature or restructures an existing one must include an exp
 
 - `config.force_ssl = true` + `config.assume_ssl = true` — Rails trusts NPM-terminated TLS. Accessing the container directly over plain HTTP without the `X-Forwarded-Proto: https` header triggers redirect loops.
 - `config.hosts`: `planner.oddbox.tech` + `/\A172\.19\.\d+\.\d+\z/` (subnet regex covering `proxy_network`). Staging adds `planner-staging.oddbox.tech`. The subnet regex avoids the fragility of a hardcoded IP.
-- `RAILS_MASTER_KEY` commented out in `.env`; `config.require_master_key` off. `credentials.yml.enc` exists but is unused — keep secrets in `.env`, not in encrypted credentials.
+- `RAILS_MASTER_KEY` commented out in `.env`; `config.require_master_key` off. Keep secrets in `.env`, not in encrypted credentials.
 - Persistent state: `./postgres_data/` and `./storage/` — bind-mounted, survive image rebuilds.
 - Secrets: `.env` (gitignored) holds `POSTGRES_USER/PASSWORD/DB`, `SECRET_KEY_BASE`, `DATABASE_URL`. Never commit; never echo.
 - Logs go to STDOUT: `docker compose logs -f app`.
@@ -388,19 +386,11 @@ docker compose exec -T app curl -sI \
 
 ## Known bugs
 
-### Active (fix on next relevant PR)
-
-**`sessions_controller.rb:14` — `:unreadble_entity` typo.** Failed logins render with `status: :unreadble_entity`, which Rails doesn't recognize, raising `ArgumentError`. Users who fat-finger their password see a 500 page instead of "Invalid email or password." Fix: `status: :unprocessable_entity`.
-
 ### Latent / low-priority backlog
 
 | # | Issue | Notes |
 |---|---|---|
-| b | **Storage bind-mount path mismatch** (`./storage:/rails/storage` should be `./storage:/app/storage`) | Safe to fix now; no attachment data at risk |
 | c | **`db/schema.rb` not auto-updated** (`dump_schema_after_migration = false`) | Run `db:schema:dump` + commit to advance; or flip the flag back on |
-| d | **`bin/docker-entrypoint` references `/rails/` paths** — unused dead code | Delete or align to `/app` |
-| f | **`credentials.yml.enc` committed but unused** — master key commented out | Delete the file or actually wire it up |
-| g | **Legacy webpacker / Fly.io residue** — `babel.config.js`, `postcss.config.js`, `webpacker.yml`, `@rails/webpacker`, `app/javascript/packs/`, `bin/webpack*`, `fly.toml` | Remove in one commit after confirming staging builds cleanly |
 | h | **Active Storage update migrations marked `up` but base tables missing** — AS install migration never ran | Investigate before wiring up any `has_one_attached` |
 | i | **`yarn.lock` carries webpacker dep tree** | Zero runtime impact; regenerate or delete when convenient |
 | j | **`app/javascript/channels/` orphaned** after packs removal | Delete if ActionCable isn't planned |
