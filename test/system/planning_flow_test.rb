@@ -11,23 +11,26 @@ class PlanningFlowTest < ApplicationSystemTestCase
     fill_in "Password", with: "password123"
     click_button "Log In"
 
+    # Wait for the login POST to land before navigating on. Without this
+    # synchronization point the visit below races the redirect and we end up
+    # back on /login unauthenticated.
+    assert_text "Welcome back!"
+
     # Use a weekday — the calendar only renders Mon–Fri.
     activity_date = Date.current
     activity_date += 2 if activity_date.saturday?
     activity_date += 1 if activity_date.sunday?
 
-    # Navigate to the specific week so the + buttons have the right data-date.
+    # Navigate to the specific week so the + buttons carry the right data-date.
     visit week_view_url(start_date: activity_date)
 
-    # Verify the week view loaded and timeslots are present
-    assert_text timeslots(:morning).label
+    # Open the modal from the morning timeslot's + button on the target date.
+    find("button[data-date='#{activity_date}'][data-block='#{timeslots(:morning).position}']").click
 
-    # Click any + button to open the modal (first available timeslot on the page)
-    first("button[data-bs-target='#add-activity-modal']").click
-
-    # Modal appears — fill in the title and submit
-    find("#activity_title", visible: true).fill_in with: "Test Activity"
-    click_button "Add Activity"
+    within "#add-activity-modal" do
+      fill_in "activity_title", with: "Test Activity"
+      click_button "Add Activity"
+    end
 
     # redirect_back returns to the same week view; activity should appear
     assert_text "Test Activity"
