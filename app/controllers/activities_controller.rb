@@ -62,8 +62,8 @@ class ActivitiesController < ApplicationController
 
   private
     def activity_params
-      params.require(:activity).permit(:title, :date, :block)
-    end
+      params.require(:activity).permit(:title, :date, :block, notes_attributes: [:body])
+end
 
     def next_weekday
       today = Date.today
