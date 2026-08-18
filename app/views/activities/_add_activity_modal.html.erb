@@ -51,6 +51,7 @@
     var modal = document.getElementById('add-activity-modal');
     modal.addEventListener('show.bs.modal', function(event) {
       var trigger = event.relatedTarget;
+      if (!trigger) return;
       modal.querySelector('#activity_date').value = trigger.getAttribute('data-date') || '';
       modal.querySelector('#activity_block').value = trigger.getAttribute('data-block') || '';
     });
